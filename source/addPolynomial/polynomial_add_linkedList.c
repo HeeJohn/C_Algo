@@ -1,3 +1,8 @@
+/*
+	name : º≠»Ò¡ÿ
+	last_edit : 23.07.11
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<stdlib.h>
