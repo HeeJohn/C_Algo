@@ -1,5 +1,6 @@
 /*
-	name : º≠»Ò¡ÿ
+	program : postfix
+	name : HuiJun Seo
 	last_edit : 23.07.11
 */
 #define _CRT_SECURE_NO_WARNINGS
