@@ -1,5 +1,6 @@
 /*
-	name : º≠»Ò¡ÿ
+	program : 9ditgit infix
+	name : huijun Seo
 	last_edit : 23.07.11
 */
 

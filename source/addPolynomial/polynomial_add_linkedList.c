@@ -1,5 +1,6 @@
 /*
-	name : º≠»Ò¡ÿ
+	program : addition of polynomial 
+	name : HuiJun Seo
 	last_edit : 23.07.11
 */
 
