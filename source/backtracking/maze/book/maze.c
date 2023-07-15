@@ -65,13 +65,13 @@ void push(element loc);
 element pop();
 void initOffset();
 void path();
-void createMaze();
+void printMaze();
 
 
 int main()
 {
 	initOffset();
-	createMaze();
+	printMaze();
 	path();
 
 	return 0;
@@ -113,48 +113,27 @@ element pop()
 
 /*------ initializing ------*/
 
-void createMaze()
+void printMaze()
 {
 
 	for (int i = 0; i < MAX_ROW; i++, puts(""))
 	{
 		for (int j = 0; j < MAX_COL; j++)
-		{
-			if (i == 0 || i == MAX_ROW - 1 || j == 0 || j == MAX_COL - 1)
-				mark[i][j] = 1;
-			else
-				mark[i][j] = 0;
 			printf("%d ", maze[i][j]);
-		}
 	}
 }
 
 
 void initOffset()
 {
-	move[N].vert = -1;
-	move[N].horiz = 0;
-
-	move[NE].vert = -1;
-	move[NE].horiz = 1;
-
-	move[E].vert = 0;
-	move[E].horiz = 1;
-
-	move[SE].vert = 1;
-	move[SE].horiz = 1;
-
-	move[S].vert = 1;
-	move[S].horiz = 0;
-
-	move[SW].vert = 1;
-	move[SW].horiz = -1;
-
-	move[W].vert = 0;
-	move[W].horiz = -1;
-
-	move[NW].vert = -1;
-	move[NW].horiz = -1;
+	move[N].vert = -1;  move[N].horiz = 0;
+	move[NE].vert = -1;	move[NE].horiz = 1;
+	move[E].vert = 0;   move[E].horiz = 1;
+	move[SE].vert = 1;  move[SE].horiz = 1;
+	move[S].vert = 1;   move[S].horiz = 0;
+	move[SW].vert = 1;  move[SW].horiz = -1;
+	move[W].vert = 0;   move[W].horiz = -1;
+	move[NW].vert = -1;	move[NW].horiz = -1;
 }
 
 
