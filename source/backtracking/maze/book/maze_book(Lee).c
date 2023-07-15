@@ -1,11 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS/*항공소프트웨어공학과 202000974 이재혁*/
 #include<stdio.h>
 #include<stdlib.h>
-#define MALLOC(p, s) \
-if(!((p)=malloc(s)))   {\
-fprintf(stderr, "Insufficient memory");\
-exit(EXIT_FAILURE);\
-}
 #define MAX_ROW 12
 #define MAX_COL 12
 #define EXIT_ROW 10
