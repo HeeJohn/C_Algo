@@ -92,7 +92,7 @@ void dfs(BOARD cur, int count, int n)
 		return;
 	}
 
-	for (int dir = 0; dir < 4; ++dir)     // 4방향 확인
+	for (int dir = 0; dir < 4; dir++)     // 4방향 확인
 	{
 		BOARD next = cur;
 		up(&next, n);
@@ -106,9 +106,9 @@ int main()
 	int n;  // 보드의 크기
 	BOARD board;
 	scanf("%d", &n);
-	for (int y = 0; y < n; ++y)
+	for (int y = 0; y < n; y++)
 	{
-		for (int x = 0; x < n; ++x)
+		for (int x = 0; x < n; x++)
 		{
 			scanf("%d", &board.map[y][x]);
 		}
