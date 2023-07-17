@@ -65,13 +65,13 @@ void push(element loc);
 element pop();
 void initOffset();
 void path();
-void createMaze();
+void printMaze();
 
 
 int main()
 {
 	initOffset();
-	createMaze();
+	printMaze();
 	path();
 
 	return 0;
@@ -97,7 +97,7 @@ element stackIsEmpty()
 
 void push(element loc)
 {
-	if (top == MAX_SIZE-1)
+	if (top == MAX_SIZE - 1)
 		stackIsFull();
 	else
 		stack[++top] = loc;
@@ -105,61 +105,39 @@ void push(element loc)
 
 element pop()
 {
-	if (top == 0)
+	if (top == -1)
 		stackIsEmpty();
 	else
-		return stack[--top];
+		return stack[top--];
 }
 
 /*------ initializing ------*/
 
-void createMaze()
+void printMaze()
 {
 
 	for (int i = 0; i < MAX_ROW; i++, puts(""))
 	{
 		for (int j = 0; j < MAX_COL; j++)
-		{
-			if (i == 0 || i == MAX_ROW - 1 || j == 0 || j == MAX_COL - 1)
-				mark[i][j] = 1;
-			else
-				mark[i][j] = 0;
 			printf("%d ", maze[i][j]);
-		}
 	}
 }
 
 
 void initOffset()
 {
-	move[N].vert = -1;
-	move[N].horiz = 0;
-
-	move[NE].vert = -1;
-	move[NE].horiz = 1;
-
-	move[E].vert = 0;
-	move[E].horiz = 1;
-
-	move[SE].vert = 1;
-	move[SE].horiz = 1;
-
-	move[S].vert = 1;
-	move[S].horiz = 0;
-
-	move[SW].vert = 1;
-	move[SW].horiz = -1;
-
-	move[W].vert = 0;
-	move[W].horiz = -1;
-
-	move[NW].vert = -1;
-	move[NW].horiz = -1;
+	move[N].vert = -1;  move[N].horiz = 0;
+	move[NE].vert = -1;	move[NE].horiz = 1;
+	move[E].vert = 0;   move[E].horiz = 1;
+	move[SE].vert = 1;  move[SE].horiz = 1;
+	move[S].vert = 1;   move[S].horiz = 0;
+	move[SW].vert = 1;  move[SW].horiz = -1;
+	move[W].vert = 0;   move[W].horiz = -1;
+	move[NW].vert = -1;	move[NW].horiz = -1;
 }
 
 
 /*------ find & print ------*/
-
 
 void path()
 {
@@ -167,7 +145,7 @@ void path()
 	element position;
 
 	mark[1][1] = 1; // start point 
-	top = 1; stack[0].row = 1; stack[0].col = 1; stack[0].dir = E;
+	top = 0; stack[0].row = 1; stack[0].col = 1; stack[0].dir = E;
 
 	while (top > -1 && !found)
 	{
@@ -179,20 +157,18 @@ void path()
 		{
 			nextRow = row + move[dir].vert;
 			nextCol = col + move[dir].horiz;
-	
+
 			if (nextRow == EXIT_ROW && nextCol == EXIT_COL)
 				found = TRUE;
 			else if (!maze[nextRow][nextCol] && !mark[nextRow][nextCol])
 			{
 				mark[nextRow][nextCol] = 1;
-				position.row = nextRow;		position.col = nextCol;
-				position.dir = dir;
+				position.row = row;		position.col = col;
+				position.dir = ++dir;
 				push(position);
-				printf("top ; %d \n", top);
 				row = nextRow; col = nextCol;	dir = N;
 			}
-			else
-				dir++;
+			else ++dir;
 		}
 	}
 	if (found)
@@ -204,6 +180,5 @@ void path()
 		printf("%2d%5d\n", row, col);
 		printf("%2d%5d\n", EXIT_ROW, EXIT_COL);
 	}
-	else
-		printf("The maze does not have a path\n");
+	else printf("The maze does not have a path\n");
 }
