@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #define MAX_ROW 12
 #define MAX_COL 12
-void gotoxy(int x, int y, const char* s) { //x°ªÀ» 2x·Î º¯°æ, ÁÂÇ¥°ª¿¡ ¹Ù·Î ¹®ÀÚ¿­À» ÀÔ·ÂÇÒ ¼ö ÀÖµµ·Ï printfÇÔ¼ö »ðÀÔ  
+void gotoxy(int x, int y, const char* s) { //xê°’ì„ 2xë¡œ ë³€ê²½, ì¢Œí‘œê°’ì— ë°”ë¡œ ë¬¸ìžì—´ì„ ìž…ë ¥í•  ìˆ˜ ìžˆë„ë¡ printfí•¨ìˆ˜ ì‚½ìž…  
 	COORD pos = { (2 * x),y };
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 	printf("%s", s);
@@ -21,60 +21,60 @@ int maze[MAX_COL][MAX_ROW] = {
 	{1,1,1,0,1,0,1,1,1,1,1,1},
 	{1,1,0,1,1,1,0,0,0,0,0,1},
 	{1,1,1,1,1,1,1,1,1,1,1,1}
-}; // ¹Ì·Î
+}; // ë¯¸ë¡œ
 
-int visited[MAX_COL][MAX_ROW]; // ¹æ¹® ¿©ºÎ¸¦ ÀúÀåÇÏ´Â ¹è¿­
-int exitRow = 10; // Ãâ±¸ À§Ä¡
+int visited[MAX_COL][MAX_ROW]; // ë°©ë¬¸ ì—¬ë¶€ë¥¼ ì €ìž¥í•˜ëŠ” ë°°ì—´
+int exitRow = 10; // ì¶œêµ¬ ìœ„ì¹˜
 int exitCol = 10;
-int found = 0; // °æ·Î¸¦ Ã£¾Ò´ÂÁö ¿©ºÎ¸¦ ÀúÀåÇÏ´Â º¯¼ö
+int found = 0; // ê²½ë¡œë¥¼ ì°¾ì•˜ëŠ”ì§€ ì—¬ë¶€ë¥¼ ì €ìž¥í•˜ëŠ” ë³€ìˆ˜
 
-// »óÇÏÁÂ¿ì ¹× ´ë°¢¼± ÀÌµ¿À» Æ÷ÇÔÇÑ 8¹æÇâ
+// ìƒí•˜ì¢Œìš° ë° ëŒ€ê°ì„  ì´ë™ì„ í¬í•¨í•œ 8ë°©í–¥
 int move[8][2] = {
-	{-1, -1}, // ÁÂ»ó
-	{-1, 0}, // »ó
-	{-1, 1}, // ¿ì»ó
-	{0, -1}, // ÁÂ
-	{0, 1}, // ¿ì
-	{1, -1}, // ÁÂÇÏ
-	{1, 0}, // ÇÏ
-	{1, 1} // ¿ìÇÏ
+	{-1, -1}, // ì¢Œìƒ
+	{-1, 0}, // ìƒ
+	{-1, 1}, // ìš°ìƒ
+	{0, -1}, // ì¢Œ
+	{0, 1}, // ìš°
+	{1, -1}, // ì¢Œí•˜
+	{1, 0}, // í•˜
+	{1, 1} // ìš°í•˜
 };
 
 void findPath(int row, int col) {
 	if (row == exitRow && col == exitCol) {
-		found = 1; // Ãâ±¸¿¡ µµÂøÇÑ °æ¿ì °æ·Î¸¦ Ã£¾ÒÀ½À» Ç¥½Ã
-		visited[row][col] = 1; // Ãâ±¸ À§Ä¡¸¦ ¹æ¹®ÇÑ °ÍÀ¸·Î Ç¥½Ã
+		found = 1; // ì¶œêµ¬ì— ë„ì°©í•œ ê²½ìš° ê²½ë¡œë¥¼ ì°¾ì•˜ìŒì„ í‘œì‹œ
+		visited[row][col] = 1; // ì¶œêµ¬ ìœ„ì¹˜ë¥¼ ë°©ë¬¸í•œ ê²ƒìœ¼ë¡œ í‘œì‹œ
 		return;
 	}
 
-	visited[row][col] = 1; // ÇöÀç À§Ä¡¸¦ ¹æ¹®ÇÑ °ÍÀ¸·Î Ç¥½Ã
+	visited[row][col] = 1; // í˜„ìž¬ ìœ„ì¹˜ë¥¼ ë°©ë¬¸í•œ ê²ƒìœ¼ë¡œ í‘œì‹œ
 
-	// 8¹æÇâÀ¸·Î ÀÌµ¿ÇÏ¸ç °æ·Î Å½»ö
+	// 8ë°©í–¥ìœ¼ë¡œ ì´ë™í•˜ë©° ê²½ë¡œ íƒìƒ‰
 	for (int i = 0; i < 8; i++) {
 		int nextRow = row + move[i][0];
 		int nextCol = col + move[i][1];
 
 		if (maze[nextRow][nextCol] == 0 && visited[nextRow][nextCol] == 0) {
 			findPath(nextRow, nextCol);
-			if (found) { // Ãâ±¸·Î ÀÌ¾îÁö´Â °æ·Î¸¦ Ã£¾ÒÀ» °æ¿ì
+			if (found) { // ì¶œêµ¬ë¡œ ì´ì–´ì§€ëŠ” ê²½ë¡œë¥¼ ì°¾ì•˜ì„ ê²½ìš°
 				return;
 			}
 		}
 	}
-	visited[row][col] = 2; // ´Ù¸¥ °æ·Î¿¡¼­ ¹æ¹®ÇÒ ¼ö ÀÖµµ·Ï ÇöÀç À§Ä¡ ¹æ¹® ¿©ºÎ ÃÊ±âÈ­
+	visited[row][col] = 2; // ë‹¤ë¥¸ ê²½ë¡œì—ì„œ ë°©ë¬¸í•  ìˆ˜ ìžˆë„ë¡ í˜„ìž¬ ìœ„ì¹˜ ë°©ë¬¸ ì—¬ë¶€ ì´ˆê¸°í™”
 	
 }
 
 void print_path() {
 	for (int i = 0;i <= MAX_ROW;i++)
 		for(int j=0;j<MAX_COL;j++)
-		if(visited[i][j]==2)
-			gotoxy(j, i+20, "¡Ü");
+		if(visited[i][j]==1)
+			gotoxy(j, i+20, "â—");
 	
-}//½ºÅÃ¿¡ ½×ÀÎ À§Ä¡µé Áï, Å»Ãâ °æ·Î¸¦ ÁÂÇ¥¸¦ Âï¾î ±æÀ» º¸¿©ÁØ´Ù
+}//ìŠ¤íƒì— ìŒ“ì¸ ìœ„ì¹˜ë“¤ ì¦‰, íƒˆì¶œ ê²½ë¡œë¥¼ ì¢Œí‘œë¥¼ ì°ì–´ ê¸¸ì„ ë³´ì—¬ì¤€ë‹¤
 
 int main(void) {
-	int startRow = 1; // ½ÃÀÛ À§Ä¡
+	int startRow = 1; // ì‹œìž‘ ìœ„ì¹˜
 	int startCol = 1;
 
 	findPath(startRow, startCol);
@@ -84,7 +84,7 @@ int main(void) {
 		printf("row col\n");
 		for (int i = 0; i < MAX_COL; i++) {
 			for (int j = 0; j < MAX_ROW; j++) {
-				if (visited[i][j] ==2)
+				if (visited[i][j] ==1)
 					printf("%2d%5d\n", i, j);
 			}
 		}
