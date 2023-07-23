@@ -44,6 +44,25 @@ int fibonacci(int n)
         return fibonacci(n - 1) + fibonacci(n - 2);
 }
 
+
+
+//동적 계획법
+int fibonacci(int n) {
+    if (n <= 0)
+        return 0;
+
+    intfValues[n + 1];
+    fValues[0] = 0;
+    fValues[1] = 1;
+
+    for (int i = 2; i <= n; i++) {
+       fValues[i] =fValues[i - 1] +fValues[i - 2];
+    }
+
+    returnfValues[n];
+}
+
+
 int power(int base, int expo)
 {
     if (expo == 0)
