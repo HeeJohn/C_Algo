@@ -51,7 +51,7 @@ int fibonacci(int n) {
     if (n <= 0)
         return 0;
 
-    intfValues[n + 1];
+    fValues[n + 1];
     fValues[0] = 0;
     fValues[1] = 1;
 
