@@ -1,4 +1,4 @@
-/*#include <stdio.h>
+#include <stdio.h>
 #include <stdlib.h>
 #define MALLOC(p,s) if(!((p)=(stackpointer)malloc(s))){fprintf(stderr,"Insufficient memory");exit(EXIT_FAILURE);}
 typedef struct stack* stackpointer;
@@ -7,20 +7,32 @@ typedef struct stack {
 	stackpointer link;
 }stack;
 
-stackpointer fibonacci;//ÇÇº¸³ªÄ¡ ¼ö¿­À» ´ãÀ» ½ºÅÃ
+stackpointer fibonacci;//í”¼ë³´ë‚˜ì¹˜ ìˆ˜ì—´ì„ ë‹´ì„ ìŠ¤íƒ
 
 void fibocalcul(int n);
 void push(int data);
+int pow(double x, int n);
+int factorial(int n);
 int main() {
 
 	int n;
-	printf("¸î¹øÂ° ÇÇº¸³ªÄ¡ ¼ö¿­À» ±¸ÇÏ°í½Í³ª¿ä? -> ");
+	printf("ëª‡ë²ˆì§¸ í”¼ë³´ë‚˜ì¹˜ ìˆ˜ì—´ì„ êµ¬í•˜ê³ ì‹¶ë‚˜ìš”? -> ");
 	scanf_s("%d", &n);
 	fibocalcul(n);
+	
+	
+	printf("n ^ mì„ êµ¬í•˜ê² ìŠµë‹ˆë‹¤ nê³¼mì„ ìˆœì„œëŒ€ë¡œ ì‘ì„±í•˜ì„¸ìš”\n -> ");
+	scanf_s("%d %d", &n, &m);
+	printf("%d ^ %d = %d ", n,m,pow(n,m));
+
+
+	printf("íŒ©í† ë¦¬ì–¼ n!ì„ êµ¬í•˜ê² ìŠµë‹ˆë‹¤. nì— ë“¤ì–´ê°ˆ ìì—°ìˆ˜ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš” -> ");
+	scanf_s("%d", &n);
+	printf("%d! = %d\n",n,factorial(n));
 }
 void fibocalcul(int n) {
-	push(0);//1Ç×
-	push(1);//2Ç×
+	push(0);//1í•­
+	push(1);//2í•­
 	int data;
 
 	for (int i = 2;i < n;i++) {
@@ -51,24 +63,11 @@ int pow(double x, int n)
 	else return x * pow(x * x, (n - 1) / 2);
 }
 
-int main()
-{   int n, m;
-	printf("n ^ mÀ» ±¸ÇÏ°Ú½À´Ï´Ù n°úmÀ» ¼ø¼­´ë·Î ÀÛ¼ºÇÏ¼¼¿ä\n -> ");
-	scanf_s("%d %d", &n, &m);
-	printf("%d ^ %d = %d ", n,m,pow(n,m));
-}*/
 #include <stdio.h>
 int factorial(int n)
 {
-	if (n <= 1)                            //1! Àº 1 ÀÌ¹Ç·Î 1 ¹İÈ¯
+	if (n <= 1)                            //1! ì€ 1 ì´ë¯€ë¡œ 1 ë°˜í™˜
 		return 1;
 	else
-		return (n * factorial(n - 1));    //Àç±ÍÈ£Ãâ ÀÌ¿ëÇØ¼­ n * (n-1)! °è»ê
-}
-int main() {
-	int n;
-	printf("ÆÑÅä¸®¾ó n!À» ±¸ÇÏ°Ú½À´Ï´Ù. n¿¡ µé¾î°¥ ÀÚ¿¬¼ö¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä -> ");
-	scanf_s("%d", &n);
-	printf("%d! = %d\n",n,factorial(n));
-
+		return (n * factorial(n - 1));    //ì¬ê·€í˜¸ì¶œ ì´ìš©í•´ì„œ n * (n-1)! ê³„ì‚°
 }
