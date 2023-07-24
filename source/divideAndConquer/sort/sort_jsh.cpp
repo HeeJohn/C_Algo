@@ -9,11 +9,11 @@ typedef struct {
 }element;
 
 void printarr(element arr[], bool isheap);
-//ÄüÁ¤·Ä
+//í€µì •ë ¬
 void arrcreateRandom(element arr[],bool isheap);
 void qsort(element arr[], int left, int right);
 
-//ÈüÁ¤·Ä
+//í™ì •ë ¬
 void adjust(element arr[], int root, int n);
 void heapSort(element arr[], int n);
 int main() {
@@ -34,7 +34,7 @@ int main() {
 void printarr(element arr[], bool isheap)
 {
  
-    printf("Á¤·Ä \n");
+    printf("ì •ë ¬ \n");
     int i,j;
     i=j=0;
     if (isheap)
@@ -50,7 +50,7 @@ void printarr(element arr[], bool isheap)
 void arrcreateRandom(element arr[],bool isheap) {
     Sleep(200);
     srand((unsigned)time(NULL));
-    printf("¼ıÀÚ : ");
+    printf("ìˆ«ì : ");
     int i,j;
     i = j = 0;
     if (isheap)
@@ -71,19 +71,19 @@ void qsort(element arr[], int left, int right)
 
     if (left < right)
     {
-        pivot = arr[left].key;//°¡Àå ¿ŞÂÊ¿¡ ÀÖ´Â ¿ø¼Ò¸¦ ÇÇº¿À¸·Î ¼³Á¤
-        i = left;//¿ŞÂÊ ³¡
-        j = right+1;//¿À¸¥ÂÊ ³¡
+        pivot = arr[left].key;//ê°€ì¥ ì™¼ìª½ì— ìˆëŠ” ì›ì†Œë¥¼ í”¼ë´‡ìœ¼ë¡œ ì„¤ì •
+        i = left;//ì™¼ìª½ ë
+        j = right+1;//ì˜¤ë¥¸ìª½ ë
 
         do {
-            do i++; while (arr[i].key < pivot);//ÇÇº¿º¸´Ù Å« ¿ø¼Ò¸¦ Ã£À» ¶§ ±îÁö iÁõ°¡
-            do j--; while (arr[j].key > pivot);//ÇÇº¿º¸´Ù ÀÛÀº ¿ø¼Ò¸¦ Ã£À» ¶§ ±îÁö j°¨¼Ò
+            do i++; while (arr[i].key < pivot);//í”¼ë´‡ë³´ë‹¤ í° ì›ì†Œë¥¼ ì°¾ì„ ë•Œ ê¹Œì§€ iì¦ê°€
+            do j--; while (arr[j].key > pivot);//í”¼ë´‡ë³´ë‹¤ ì‘ì€ ì›ì†Œë¥¼ ì°¾ì„ ë•Œ ê¹Œì§€ jê°ì†Œ
 
-            if (i < j) SWAP(arr[i], arr[j], temp);//±×·¡µµ j°¡ Å©´Ù¸é i¹øÂ° ¿ø¼Ò¿Í j¹øÂ° ¿ø¼Ò¸¦ ±³È¯ÇÏ¹Ç·Î½á ÇÇº¿À» Áß½ÉÀ¸·Î ¿ŞÂÊÀº ÀÛÀº °ª, ¿À¸¥ÂÊ¿¡´Â Å« °ªÀÌ Á¤·Ä
-        } while (i < j); //j°¡ iº¸´Ù ÀÛ¾ÆÁú ¶§ ±îÁö ¹İº¹
-        SWAP(arr[left], arr[j], temp);//ÇÇº¿°ú j¹øÂ° ¿ø¼Ò¸¦ ±³È¯ÇÏ¹Ç·Î½á ÇÇº¿À» ±âÁØÀ¸·Î ¹èÄ¡
-        qsort(arr, left, j - 1);//ÇÇº¿ÀÇ ¿ŞÂÊÀ» È£ÃâÇÔÀ¸·Î½á À§ÀÇÄÚµå ¹İº¹
-        qsort(arr, j + 1, right);//ÇÇº¿ÀÇ ¿À¸¥ÂÊÀ» È£ÃâÇÔÀ¸·Î½á À§ÀÇ ÄÚµå ¹İº¹
+            if (i < j) SWAP(arr[i], arr[j], temp);//ê·¸ë˜ë„ jê°€ í¬ë‹¤ë©´ ië²ˆì§¸ ì›ì†Œì™€ jë²ˆì§¸ ì›ì†Œë¥¼ êµí™˜í•˜ë¯€ë¡œì¨ í”¼ë´‡ì„ ì¤‘ì‹¬ìœ¼ë¡œ ì™¼ìª½ì€ ì‘ì€ ê°’, ì˜¤ë¥¸ìª½ì—ëŠ” í° ê°’ì´ ì •ë ¬
+        } while (i < j); //jê°€ ië³´ë‹¤ ì‘ì•„ì§ˆ ë•Œ ê¹Œì§€ ë°˜ë³µ
+        SWAP(arr[left], arr[j], temp);//í”¼ë´‡ê³¼ jë²ˆì§¸ ì›ì†Œë¥¼ êµí™˜í•˜ë¯€ë¡œì¨ í”¼ë´‡ì„ ê¸°ì¤€ìœ¼ë¡œ ë°°ì¹˜
+        qsort(arr, left, j - 1);//í”¼ë´‡ì˜ ì™¼ìª½ì„ í˜¸ì¶œí•¨ìœ¼ë¡œì¨ ìœ„ì˜ì½”ë“œ ë°˜ë³µ
+        qsort(arr, j + 1, right);//í”¼ë´‡ì˜ ì˜¤ë¥¸ìª½ì„ í˜¸ì¶œí•¨ìœ¼ë¡œì¨ ìœ„ì˜ ì½”ë“œ ë°˜ë³µ
     }
 }
 
@@ -91,7 +91,7 @@ void qsort(element arr[], int left, int right)
 
 
 
-void adjust(element arr[], int root, int n)//³»¸²Â÷¼ø Á¤·Ä
+void adjust(element arr[], int root, int n)//ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
 {
     int child, rootkey;
     element temp;
@@ -102,20 +102,20 @@ void adjust(element arr[], int root, int n)//³»¸²Â÷¼ø Á¤·Ä
     while (child <= n)
     {
         if ((child < n) && (arr[child].key < arr[child + 1].key))
-            child++;//µÎ ÀÚ½Ä¿ø¼ÒÁß ´õ Å« ÀÚ½Ä¿ø¼Ò ¼±ÅÃ
+            child++;//ë‘ ìì‹ì›ì†Œì¤‘ ë” í° ìì‹ì›ì†Œ ì„ íƒ
 
         if (rootkey > arr[child].key)
             break;
-        else {//ÀÚ½Ä¿ø¼Ò°¡ ºÎ¸ğ¿ø¼Òº¸´Ù Å¬ °æ¿ì
-            arr[child / 2] = arr[child]; // ºÎ¸ğ¿ø¼Ò¿Í ÀÚ½Ä¿ø¼Ò ±³È¯
+        else {//ìì‹ì›ì†Œê°€ ë¶€ëª¨ì›ì†Œë³´ë‹¤ í´ ê²½ìš°
+            arr[child / 2] = arr[child]; // ë¶€ëª¨ì›ì†Œì™€ ìì‹ì›ì†Œ êµí™˜
             child *= 2;
         }
     }
-    arr[child / 2] = temp; //ºÎ¸ğ ³ëµå¿¡ ·çÆ®³ëµå ¹èÄ¡
+    arr[child / 2] = temp; //ë¶€ëª¨ ë…¸ë“œì— ë£¨íŠ¸ë…¸ë“œ ë°°ì¹˜
 
 }
 
-void heapSort(element arr[], int n)//³»¸²Â÷¼ø Á¤·Ä
+void heapSort(element arr[], int n)//ë‚´ë¦¼ì°¨ìˆœ ì •ë ¬
 {
     int i;
     element temp;
