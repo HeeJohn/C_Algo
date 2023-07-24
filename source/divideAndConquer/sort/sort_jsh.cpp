@@ -48,7 +48,7 @@ void printarr(element arr[], bool isheap)
     printf("\n");
 }
 void arrcreateRandom(element arr[],bool isheap) {
-    Sleep(200);
+    Sleep(200);//랜덤 숫자의 차이를 두기 위해 시간 지연
     srand((unsigned)time(NULL));
     printf("숫자 : ");
     int i,j;
