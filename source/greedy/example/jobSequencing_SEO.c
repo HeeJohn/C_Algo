@@ -1,10 +1,14 @@
+/*
+    program : jobSequencing
+    name : HuiJun Seo
+    last_edit: 23.08.05
+*/
+
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h> // Added for random number generation
-#define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define MALLOC(p, s) \
     if (!((p) = malloc(s))) { \
         fprintf(stderr, "insufficient memory space"); \
@@ -19,44 +23,40 @@ typedef struct Job {
     int profit;   // Profit if job is over before or on deadline
 } Job;
 
-void printJobScheduling(Job arr[], int n);
+void printJobScheduling(Job arr[], int max);
 void quickSort(Job arr[], int left, int right);
 void printSlot(Job arr[], bool slot[], int result[], int n);
 int findMaxDeadline(Job arr[], int n);
 void printArray(Job arr[], int n);
 
+
 // Driver's code
 int main()
 {
-    srand(time(0)); // Seed the random number generator with current time
+    Job arr[] = {
+     { 'a', 2, 100 },
+     { 'b', 2, 20 },
+     { 'c', 1, 40 },
+     { 'd', 3, 35 },
+     { 'e', 1, 25 },
+     { 'f', 4, 45 },
+     { 'g', 3, 30 },
+     { 'h', 2, 50 },
+     { 'i', 5, 10 },
+    };
+    int n = sizeof(arr) / sizeof(arr[0]);
 
 
-    int n;
-    printf("Enter the number of jobs: ");
-    scanf("%d", &n);
 
-    Job* arr;
-    MALLOC(arr, n * sizeof(Job));
 
-    // Generate random profit and deadline for each job
-    for (int i = 0; i < n; i++) {
-        arr[i].id = 'a' + i; // Assign a unique id to each job (for better visualization)
-        arr[i].profit = rand() % 100 + 1; // Random profit between 1 and 100
-        arr[i].dead = rand() % 10 + 1;    // Random deadline between 1 and 10
-    }
-
-    printf("--Generated Random Job Details--\n");
     printArray(arr, n);
-
     quickSort(arr, 0, n - 1); // Sort all jobs according to decreasing order of profit
 
-    printf("\n--Sorted as decreasing order of profit--\n");
-    printArray(arr, n);
+    printf("\n--Sorted as decreasing order of profit--\n"); printArray(arr, n);
+
 
     printf("\n\nFollowing is maximum profit sequence of jobs\n");
     printJobScheduling(arr, n); // Function call
-
-    free(arr); // Free the allocated memory for the array
 
     return 0;
 }
@@ -70,13 +70,14 @@ void printArray(Job arr[], int n)
         printf("dealine : %d\t", arr[i].dead);
         printf("profit : %d\n", arr[i].profit);
     }
+    puts("");
 }
 
-void printSlot(Job arr[], bool slot[], int result[], int n)
+void printSlot(Job arr[], bool slot[], int result[], int max)
 {
     // Print the result
     int totalProfit = 0;
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < max; i++) {
         if (slot[i]) {
             printf("id : %c\t", arr[result[i]].id);
             printf("dealine : %d\t", arr[result[i]].dead);
@@ -86,8 +87,10 @@ void printSlot(Job arr[], bool slot[], int result[], int n)
     }
     printf("\ntotal profit is %d\n", totalProfit);
 }
-
 /* ----------------print ------------------*/
+
+
+
 
 /* ----------------job scheduling ------------------*/
 
@@ -104,13 +107,15 @@ int findMaxDeadline(Job arr[], int n)
 
 void printJobScheduling(Job arr[], int n)
 {
-    int* result;
-    MALLOC(result, n); // To store result (Sequence of jobs)
-    bool* slot;
-    MALLOC(slot, n); // To keep track of free time slots
 
     int max = findMaxDeadline(arr, n);
     printf("max deadline : %d\n", max);
+    int* result;
+    MALLOC(result, max); // To store result (Sequence of jobs)
+    bool* slot;
+    MALLOC(slot, max); // To keep track of free time slots
+
+
 
     // Initialize all slots to be free
     for (int i = 0; i < n; i++)
@@ -118,19 +123,22 @@ void printJobScheduling(Job arr[], int n)
 
     int maxDeadline = 0;
     // Iterate through all given jobs
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < n; i++)
+    {
         int j = arr[i].dead - 1;
-        if (slot[j] == false && maxDeadline + arr[i].dead <= max) {
+        if (slot[j] == false && maxDeadline + arr[i].dead <= max)
+        {
             result[j] = i; // Add this job to result
             slot[j] = true; // Make this slot occupied
             maxDeadline += arr[i].dead;
         }
     }
-    printSlot(arr, slot, result, n); // print the best slot
+    printSlot(arr, slot, result, max); // print the best slot
 }
-
 /* ----------------job scheduling ------------------*/
 
+
+/* ---------------- sort jobs in order of decreasing profit ------------------*/
 void quickSort(Job arr[], int left, int right)
 {
     if (left < right)
@@ -152,3 +160,5 @@ void quickSort(Job arr[], int left, int right)
         quickSort(arr, j + 1, right);
     }
 }
+
+/* ---------------- sort jobs in order of decreasing profit ------------------*/
