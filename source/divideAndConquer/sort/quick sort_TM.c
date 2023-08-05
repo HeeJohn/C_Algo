@@ -2,7 +2,7 @@
 //#include <windows.h>
 //#define TIME 1000
 //#define MAX_INDEX 10
-//#define SWAP(x,y,t) {(t) = (x); (x) = (y); (y) = (t);}
+//#define SWAP(x,y,t)  {(t) = (x); (x) = (y); (y) = (t);}
 //
 //typedef struct {
 //	int key;
