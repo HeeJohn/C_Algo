@@ -1,10 +1,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include<stdio.h>
-#include<windows.h>
-#include<conio.h>
-#include<time.h>
-#include<stdlib.h>
 
 #define LEFT 75 //좌로 이동    //키보드값들 
 #define RIGHT 77 //우로 이동 
@@ -14,6 +10,18 @@
 #define p 112 //일시정지 
 #define P 80 //일시정지
 #define ESC 27 //게임종료 
+
+#define ACTIVE_BLOCK -2 // 게임판배열에 저장될 블록의 상태들 
+#define CEILLING -1     // 블록이 이동할 수 있는 공간은 0 또는 음의 정수료 표현 
+#define EMPTY 0         // 블록이 이동할 수 없는 공간은 양수로 표현 
+#define WALL 1
+#define INACTIVE_BLOCK 2 // 이동이 완료된 블록값 
+
+#include<windows.h>
+#include<conio.h>
+#include<time.h>
+#include<stdlib.h>
+
 
 #define false 0
 #define true 1
@@ -141,48 +149,48 @@ int blocks[7][4][4][4] = {
         0,1,0,0,
         0,1,0,0,
         0,1,1,0}},
-        /*------ ㄴ모양 -----------*/
+    /*------ ㄴ모양 -----------*/
 
-        {{0,0,0,0,
-        1,0,0,0,
-        1,1,1,0,
-        0,0,0,0},//ㄴ모양
+    {{0,0,0,0,
+    1,0,0,0,
+    1,1,1,0,
+    0,0,0,0},//ㄴ모양
 
-        {0,0,0,0,
-        0,1,0,0,
-        0,1,0,0,
-        1,1,0,0},
+    {0,0,0,0,
+    0,1,0,0,
+    0,1,0,0,
+    1,1,0,0},
 
-        {0,0,0,0,
-        0,0,0,0,
-        1,1,1,0,
-        0,0,1,0},
+    {0,0,0,0,
+    0,0,0,0,
+    1,1,1,0,
+    0,0,1,0},
 
-        {0,0,0,0,
-        0,1,1,0,
-        0,1,0,0,
-        0,1,0,0}},
+    {0,0,0,0,
+    0,1,1,0,
+    0,1,0,0,
+    0,1,0,0}},
 
-        /*------ ㅗ모양 -----------*/
-        {{0,0,0,0,
-         0,1,0,0,
-         1,1,1,0,
-         0,0,0,0},//ㅗ모양
+    /*------ ㅗ모양 -----------*/
+    {{0,0,0,0,
+     0,1,0,0,
+     1,1,1,0,
+     0,0,0,0},//ㅗ모양
 
-        {0,0,0,0,
-        0,1,0,0,
-        0,1,1,0,
-        0,1,0,0},
+    {0,0,0,0,
+    0,1,0,0,
+    0,1,1,0,
+    0,1,0,0},
 
-        {0,0,0,0,
-        0,0,0,0,
-        1,1,1,0,
-        0,1,0,0},
+    {0,0,0,0,
+    0,0,0,0,
+    1,1,1,0,
+    0,1,0,0},
 
-        {0,0,0,0,
-        0,1,0,0,
-        1,1,0,0,
-        0,1,0,0}}
+    {0,0,0,0,
+    0,1,0,0,
+    1,1,0,0,
+    0,1,0,0}}
 }; //블록모양 저장 4*4공간에 블록을 표현 blcoks[b_type][b_rotation][i][j]로 사용 
 
 int b_type; //블록 종류를 저장 
@@ -227,8 +235,7 @@ void check_line(void); //줄이 가득찼는지를 판단하고 지움
 void check_level_up(void); //레벨목표가 달성되었는지를 판단하고 levelup시킴 
 void check_game_over(void); //게임오버인지 판단하고 게임오버를 진행 
 void pause(void);//게임을 일시정지시킴 
-void gotoxy(int x, int y);
-
+void gotoxy(int x, int y)
 
 void gotoxy(int x, int y) { //gotoxy함수 
     COORD pos = { 2 * x,y };
@@ -498,51 +505,6 @@ void create_nblock(void) { //새로운 블록 생성
     }
 }
 
-void check_key(void) {
-    key = 0; //키값 초기화  
-
-    if (_kbhit()) { //키입력이 있는 경우  
-        key = _getch(); //키값을 받음
-        if (key == 224) { //방향키인경우 
-            do { key = _getch(); } while (key == 224);//방향키지시값을 버림 
-            switch (key) {
-            case LEFT: //왼쪽키 눌렀을때  
-                if (check_crush(bx - 1, by, b_rotation) == true) move_block(LEFT);
-                break;                            //왼쪽으로 갈 수 있는지 체크 후 가능하면 이동
-            case RIGHT: //오른쪽 방향키 눌렀을때- 위와 동일하게 처리됨 
-                if (check_crush(bx + 1, by, b_rotation) == true) move_block(RIGHT);
-                break;
-            case DOWN: //아래쪽 방향키 눌렀을때-위와 동일하게 처리됨 
-                if (check_crush(bx, by + 1, b_rotation) == true) move_block(DOWN);
-                break;
-            case UP: //위쪽 방향키 눌렀을때 
-                if (check_crush(bx, by, (b_rotation + 1) % 4) == true) move_block(UP);
-                //회전할 수 있는지 체크 후 가능하면 회전
-                else if (crush_on == 1 && check_crush(bx, by - 1, (b_rotation + 1) % 4) == true) move_block(100);
-            }                    //바닥에 닿은 경우 위쪽으로 한칸띄워서 회전이 가능하면 그렇게 함(특수동작)
-        }
-        else { //방향키가 아닌경우 
-            switch (key) {
-            case SPACE: //스페이스키 눌렀을때 
-                space_key_on = 1; //스페이스키 flag를 띄움 
-                while (crush_on == 0) { //바닥에 닿을때까지 이동시킴 
-                    drop_block();
-                    score += level; // hard drop 보너스
-                    gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE); printf("        %6d", score); //점수 표시  
-                }
-                break;
-            case P: //P(대문자) 눌렀을때 
-            case p: //p(소문자) 눌렀을때 
-                pause(); //일시정지 
-                break;
-            case ESC: //ESC눌렀을때 
-                system("cls"); //화면을 지우고 
-                exit(0); //게임종료 
-            }
-        }
-    }
-    while (_kbhit()) _getch(); //키버퍼를 비움 
-}
 
 void drop_block(void) {
     int i, j;
@@ -576,83 +538,6 @@ int check_crush(int bx, int by, int b_rotation) { //지정된 좌표와 회전값으로 충�
     return true; //하나도 안겹치면 true리턴 
 };
 
-void move_block(int dir) { //블록을 이동시킴 
-    int i, j;
-
-    switch (dir) {
-    case LEFT: //왼쪽방향 
-        for (i = 0; i < 4; i++) { //현재좌표의 블럭을 지움 
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
-            }
-        }
-        for (i = 0; i < 4; i++) { //왼쪽으로 한칸가서 active block을 찍음 
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j - 1] = ACTIVE_BLOCK;
-            }
-        }
-        bx--; //좌표값 이동 
-        break;
-
-    case RIGHT:    //오른쪽 방향. 왼쪽방향이랑 같은 원리로 동작 
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
-            }
-        }
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j + 1] = ACTIVE_BLOCK;
-            }
-        }
-        bx++;
-        break;
-
-    case DOWN:    //아래쪽 방향. 왼쪽방향이랑 같은 원리로 동작
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
-            }
-        }
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i + 1][bx + j] = ACTIVE_BLOCK;
-            }
-        }
-        by++;
-        break;
-
-    case UP: //키보드 위쪽 눌렀을때 회전시킴. 
-        for (i = 0; i < 4; i++) { //현재좌표의 블럭을 지움  
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
-            }
-        }
-        b_rotation = (b_rotation + 1) % 4; //회전값을 1증가시킴(3에서 4가 되는 경우는 0으로 되돌림) 
-        for (i = 0; i < 4; i++) { //회전된 블록을 찍음 
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = ACTIVE_BLOCK;
-            }
-        }
-        break;
-
-    case 100: //블록이 바닥, 혹은 다른 블록과 닿은 상태에서 한칸위로 올려 회전이 가능한 경우 
-        //이를 동작시키는 특수동작 
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
-            }
-        }
-        b_rotation = (b_rotation + 1) % 4;
-        for (i = 0; i < 4; i++) {
-            for (j = 0; j < 4; j++) {
-                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i - 1][bx + j] = ACTIVE_BLOCK;
-            }
-        }
-        by--;
-        break;
-    }
-}
 
 void check_line(void) {
     int i, j, k, l;
@@ -766,7 +651,132 @@ void check_level_up(void) {
 
     }
 }
+#include "basic.h"
 
+void move_block(int dir) { //블록을 이 동시킴 
+    int i, j;
+
+    switch (dir) {
+    case LEFT: //왼쪽방향 
+        for (i = 0; i < 4; i++) { //현재좌표의 블럭을 지움 
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
+            }
+        }
+        for (i = 0; i < 4; i++) { //왼쪽으로 한칸가서 active block을 찍음 
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j - 1] = ACTIVE_BLOCK;
+            }
+        }
+        bx--; //좌표값 이동 
+        break;
+
+    case RIGHT:    //오른쪽 방향. 왼쪽방향이랑 같은 원리로 동작 
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
+            }
+        }
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j + 1] = ACTIVE_BLOCK;
+            }
+        }
+        bx++;
+        break;
+
+    case DOWN:    //아래쪽 방향. 왼쪽방향이랑 같은 원리로 동작
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
+            }
+        }
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i + 1][bx + j] = ACTIVE_BLOCK;
+            }
+        }
+        by++;
+        break;
+
+    case UP: //키보드 위쪽 눌렀을때 회전시킴. 
+        for (i = 0; i < 4; i++) { //현재좌표의 블럭을 지움  
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
+            }
+        }
+        b_rotation = (b_rotation + 1) % 4; //회전값을 1증가시킴(3에서 4가 되는 경우는 0으로 되돌림) 
+        for (i = 0; i < 4; i++) { //회전된 블록을 찍음 
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = ACTIVE_BLOCK;
+            }
+        }
+        break;
+
+    case 100: //블록이 바닥, 혹은 다른 블록과 닿은 상태에서 한칸위로 올려 회전이 가능한 경우 
+        //이를 동작시키는 특수동작 
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
+            }
+        }
+        b_rotation = (b_rotation + 1) % 4;
+        for (i = 0; i < 4; i++) {
+            for (j = 0; j < 4; j++) {
+                if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i - 1][bx + j] = ACTIVE_BLOCK;
+            }
+        }
+        by--;
+        break;
+    }
+}
+
+
+void check_key(void) {
+    key = 0; //키값 초기화  
+
+    if (_kbhit()) { //키입력이 있는 경우  
+        key = _getch(); //키값을 받음
+        if (key == 224) { //방향키인경우 
+            do { key = _getch(); } while (key == 224);//방향키지시값을 버림 
+            switch (key) {
+            case LEFT: //왼쪽키 눌렀을때  
+                if (check_crush(bx - 1, by, b_rotation) == true) move_block(LEFT);
+                break;                            //왼쪽으로 갈 수 있는지 체크 후 가능하면 이동
+            case RIGHT: //오른쪽 방향키 눌렀을때- 위와 동일하게 처리됨 
+                if (check_crush(bx + 1, by, b_rotation) == true) move_block(RIGHT);
+                break;
+            case DOWN: //아래쪽 방향키 눌렀을때-위와 동일하게 처리됨 
+                if (check_crush(bx, by + 1, b_rotation) == true) move_block(DOWN);
+                break;
+            case UP: //위쪽 방향키 눌렀을때 
+                if (check_crush(bx, by, (b_rotation + 1) % 4) == true) move_block(UP);
+                //회전할 수 있는지 체크 후 가능하면 회전
+                else if (crush_on == 1 && check_crush(bx, by - 1, (b_rotation + 1) % 4) == true) move_block(100);
+            }                    //바닥에 닿은 경우 위쪽으로 한칸띄워서 회전이 가능하면 그렇게 함(특수동작)
+        }
+        else { //방향키가 아닌경우 
+            switch (key) {
+            case SPACE: //스페이스키 눌렀을때 
+                space_key_on = 1; //스페이스키 flag를 띄움 
+                while (crush_on == 0) { //바닥에 닿을때까지 이동시킴 
+                    drop_block();
+                    score += level; // hard drop 보너스
+                    gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE); printf("        %6d", score); //점수 표시  
+                }
+                break;
+            case P: //P(대문자) 눌렀을때 
+            case p: //p(소문자) 눌렀을때 
+                pause(); //일시정지 
+                break;
+            case ESC: //ESC눌렀을때 
+                system("cls"); //화면을 지우고 
+                exit(0); //게임종료 
+            }
+        }
+    }
+    while (_kbhit()) _getch(); //키버퍼를 비움 
+}
 void check_game_over(void) {
     int i;
 
