@@ -2,20 +2,20 @@
 
 #include<stdio.h>
 
-#define LEFT 75 //ÁÂ·Î ÀÌµ¿    //Å°º¸µå°ªµé 
-#define RIGHT 77 //¿ì·Î ÀÌµ¿ 
-#define UP 72 //È¸Àü 
+#define LEFT 75 //ì¢Œë¡œ ì´ë™    //í‚¤ë³´ë“œê°’ë“¤ 
+#define RIGHT 77 //ìš°ë¡œ ì´ë™ 
+#define UP 72 //íšŒì „ 
 #define DOWN 80 //soft drop
 #define SPACE 32 //hard drop
-#define p 112 //ÀÏ½ÃÁ¤Áö 
-#define P 80 //ÀÏ½ÃÁ¤Áö
-#define ESC 27 //°ÔÀÓÁ¾·á 
+#define p 112 //ì¼ì‹œì •ì§€ 
+#define P 80 //ì¼ì‹œì •ì§€
+#define ESC 27 //ê²Œì„ì¢…ë£Œ 
 
-#define ACTIVE_BLOCK -2 // °ÔÀÓÆÇ¹è¿­¿¡ ÀúÀåµÉ ºí·ÏÀÇ »óÅÂµé 
-#define CEILLING -1     // ºí·ÏÀÌ ÀÌµ¿ÇÒ ¼ö ÀÖ´Â °ø°£Àº 0 ¶Ç´Â À½ÀÇ Á¤¼ö·á Ç¥Çö 
-#define EMPTY 0         // ºí·ÏÀÌ ÀÌµ¿ÇÒ ¼ö ¾ø´Â °ø°£Àº ¾ç¼ö·Î Ç¥Çö 
+#define ACTIVE_BLOCK -2 // ê²Œì„íŒë°°ì—´ì— ì €ì¥ë  ë¸”ë¡ì˜ ìƒíƒœë“¤ 
+#define CEILLING -1     // ë¸”ë¡ì´ ì´ë™í•  ìˆ˜ ìˆëŠ” ê³µê°„ì€ 0 ë˜ëŠ” ìŒì˜ ì •ìˆ˜ë£Œ í‘œí˜„ 
+#define EMPTY 0         // ë¸”ë¡ì´ ì´ë™í•  ìˆ˜ ì—†ëŠ” ê³µê°„ì€ ì–‘ìˆ˜ë¡œ í‘œí˜„ 
 #define WALL 1
-#define INACTIVE_BLOCK 2 // ÀÌµ¿ÀÌ ¿Ï·áµÈ ºí·Ï°ª 
+#define INACTIVE_BLOCK 2 // ì´ë™ì´ ì™„ë£Œëœ ë¸”ë¡ê°’ 
 
 #include<windows.h>
 #include<conio.h>
@@ -26,29 +26,29 @@
 #define false 0
 #define true 1
 
-#define ACTIVE_BLOCK -2 // °ÔÀÓÆÇ¹è¿­¿¡ ÀúÀåµÉ ºí·ÏÀÇ »óÅÂµé 
-#define CEILLING -1     // ºí·ÏÀÌ ÀÌµ¿ÇÒ ¼ö ÀÖ´Â °ø°£Àº 0 ¶Ç´Â À½ÀÇ Á¤¼ö·á Ç¥Çö 
-#define EMPTY 0         // ºí·ÏÀÌ ÀÌµ¿ÇÒ ¼ö ¾ø´Â °ø°£Àº ¾ç¼ö·Î Ç¥Çö 
+#define ACTIVE_BLOCK -2 // ê²Œì„íŒë°°ì—´ì— ì €ì¥ë  ë¸”ë¡ì˜ ìƒíƒœë“¤ 
+#define CEILLING -1     // ë¸”ë¡ì´ ì´ë™í•  ìˆ˜ ìˆëŠ” ê³µê°„ì€ 0 ë˜ëŠ” ìŒì˜ ì •ìˆ˜ë£Œ í‘œí˜„ 
+#define EMPTY 0         // ë¸”ë¡ì´ ì´ë™í•  ìˆ˜ ì—†ëŠ” ê³µê°„ì€ ì–‘ìˆ˜ë¡œ í‘œí˜„ 
 #define WALL 1
-#define INACTIVE_BLOCK 2 // ÀÌµ¿ÀÌ ¿Ï·áµÈ ºí·Ï°ª 
+#define INACTIVE_BLOCK 2 // ì´ë™ì´ ì™„ë£Œëœ ë¸”ë¡ê°’ 
 
-#define BOARD_X 11 //°ÔÀÓÆÇ °¡·ÎÅ©±â 
-#define BOARD_Y 23 //°ÔÀÓÆÇ ¼¼·ÎÅ©±â 
-#define BOARD_X_ADJ 3 //°ÔÀÓÆÇ À§Ä¡Á¶Á¤ 
-#define BOARD_Y_ADJ 1 //°ÔÀÓÆÇ À§Ä¡Á¶Á¤ 
+#define BOARD_X 11 //ê²Œì„íŒ ê°€ë¡œí¬ê¸° 
+#define BOARD_Y 23 //ê²Œì„íŒ ì„¸ë¡œí¬ê¸° 
+#define BOARD_X_ADJ 3 //ê²Œì„íŒ ìœ„ì¹˜ì¡°ì • 
+#define BOARD_Y_ADJ 1 //ê²Œì„íŒ ìœ„ì¹˜ì¡°ì • 
 
-#define STATUS_X_ADJ BOARD_X_ADJ+BOARD_X+1 //°ÔÀÓÁ¤º¸Ç¥½Ã À§Ä¡Á¶Á¤ 
+#define STATUS_X_ADJ BOARD_X_ADJ+BOARD_X+1 //ê²Œì„ì •ë³´í‘œì‹œ ìœ„ì¹˜ì¡°ì • 
 
-int STATUS_Y_GOAL; //GOAL Á¤º¸Ç¥½ÃÀ§Ä¡Y ÁÂÇ¥ ÀúÀå 
-int STATUS_Y_LEVEL; //LEVEL Á¤º¸Ç¥½ÃÀ§Ä¡Y ÁÂÇ¥ ÀúÀå
-int STATUS_Y_SCORE; //SCORE Á¤º¸Ç¥½ÃÀ§Ä¡Y ÁÂÇ¥ ÀúÀå
+int STATUS_Y_GOAL; //GOAL ì •ë³´í‘œì‹œìœ„ì¹˜Y ì¢Œí‘œ ì €ì¥ 
+int STATUS_Y_LEVEL; //LEVEL ì •ë³´í‘œì‹œìœ„ì¹˜Y ì¢Œí‘œ ì €ì¥
+int STATUS_Y_SCORE; //SCORE ì •ë³´í‘œì‹œìœ„ì¹˜Y ì¢Œí‘œ ì €ì¥
 
 int blocks[7][4][4][4] = {
-    /*------ ¤± ¸ğ¾ç -----------*/
+    /*------ ã… ëª¨ì–‘ -----------*/
 {       {0,0,0,0,
          0,1,1,0,
          0,1,1,0,
-         0,0,0,0},//¤± ¸ğ¾ç
+         0,0,0,0},//ã… ëª¨ì–‘
 
         {0,0,0,0,
          0,1,1,0,
@@ -66,11 +66,11 @@ int blocks[7][4][4][4] = {
         0,0,0,0}},
 
 
-        /*------ ¤Ñ¸ğ¾ç -----------*/
+        /*------ ã…¡ëª¨ì–‘ -----------*/
         {{0,0,0,0,
         0,0,0,0,
         1,1,1,1,
-        0,0,0,0},//¤Ñ¸ğ¾ç
+        0,0,0,0},//ã…¡ëª¨ì–‘
 
        {0,1,0,0,
         0,1,0,0,
@@ -87,11 +87,11 @@ int blocks[7][4][4][4] = {
         0,1,0,0,
         0,1,0,0}},
 
-        /*------ ¤©¸ğ¾ç -----------*/
+        /*------ ã„¹ëª¨ì–‘ -----------*/
         {{0,0,0,0,
         1,1,0,0,
         0,1,1,0,
-        0,0,0,0},//¤©¸ğ¾ç 
+        0,0,0,0},//ã„¹ëª¨ì–‘ 
 
         {0,0,0,0,
         0,0,1,0,
@@ -108,11 +108,11 @@ int blocks[7][4][4][4] = {
         ,0,1,1,0
         ,0,1,0,0}},
 
-    /*------ ¤©¹İ´ë¸ğ¾ç -----------*/
+    /*------ ã„¹ë°˜ëŒ€ëª¨ì–‘ -----------*/
         {{0,0,0,0,
         0,1,1,0,
         1,1,0,0,
-        0,0,0,0},//¤©¹İ´ë¸ğ¾ç
+        0,0,0,0},//ã„¹ë°˜ëŒ€ëª¨ì–‘
 
         {0,0,0,0,
         1,0,0,0,
@@ -129,11 +129,11 @@ int blocks[7][4][4][4] = {
         1,1,0,0,
         0,1,0,0}},
 
-    /*------ ¤¤¹İ´ë¸ğ¾ç -----------*/
+    /*------ ã„´ë°˜ëŒ€ëª¨ì–‘ -----------*/
         {{0,0,0,0,
         0,0,1,0,
         1,1,1,0,
-        0,0,0,0},//¤¤¹İ´ë¸ğ¾ç
+        0,0,0,0},//ã„´ë°˜ëŒ€ëª¨ì–‘
 
         {0,0,0,0,
         1,1,0,0,
@@ -149,12 +149,12 @@ int blocks[7][4][4][4] = {
         0,1,0,0,
         0,1,0,0,
         0,1,1,0}},
-    /*------ ¤¤¸ğ¾ç -----------*/
+    /*------ ã„´ëª¨ì–‘ -----------*/
 
     {{0,0,0,0,
     1,0,0,0,
     1,1,1,0,
-    0,0,0,0},//¤¤¸ğ¾ç
+    0,0,0,0},//ã„´ëª¨ì–‘
 
     {0,0,0,0,
     0,1,0,0,
@@ -171,11 +171,11 @@ int blocks[7][4][4][4] = {
     0,1,0,0,
     0,1,0,0}},
 
-    /*------ ¤Ç¸ğ¾ç -----------*/
+    /*------ ã…—ëª¨ì–‘ -----------*/
     {{0,0,0,0,
      0,1,0,0,
      1,1,1,0,
-     0,0,0,0},//¤Ç¸ğ¾ç
+     0,0,0,0},//ã…—ëª¨ì–‘
 
     {0,0,0,0,
     0,1,0,0,
@@ -191,65 +191,65 @@ int blocks[7][4][4][4] = {
     0,1,0,0,
     1,1,0,0,
     0,1,0,0}}
-}; //ºí·Ï¸ğ¾ç ÀúÀå 4*4°ø°£¿¡ ºí·ÏÀ» Ç¥Çö blcoks[b_type][b_rotation][i][j]·Î »ç¿ë 
+}; //ë¸”ë¡ëª¨ì–‘ ì €ì¥ 4*4ê³µê°„ì— ë¸”ë¡ì„ í‘œí˜„ blcoks[b_type][b_rotation][i][j]ë¡œ ì‚¬ìš© 
 
-int b_type; //ºí·Ï Á¾·ù¸¦ ÀúÀå 
-int b_rotation; //ºí·Ï È¸Àü°ª ÀúÀå 
-int b_type_next; //´ÙÀ½ ºí·Ï°ª ÀúÀå 
+int b_type; //ë¸”ë¡ ì¢…ë¥˜ë¥¼ ì €ì¥ 
+int b_rotation; //ë¸”ë¡ íšŒì „ê°’ ì €ì¥ 
+int b_type_next; //ë‹¤ìŒ ë¸”ë¡ê°’ ì €ì¥ 
 
-int board_curr[BOARD_Y][BOARD_X]; //°ÔÀÓÆÇÀÇ Á¤º¸¸¦ ÀúÀåÇÏ´Â ¹è¿­ ¸ğ´ÏÅÍ¿¡ Ç¥½ÃÈÄ¿¡ board_prev·Î º¹»çµÊ 
-int board_prev[BOARD_Y][BOARD_X]; //Áï maincpy´Â °ÔÀÓÆÇÀÌ ¸ğ´ÏÅÍ¿¡ Ç¥½ÃµÇ±â ÀüÀÇ Á¤º¸¸¦ °¡Áö°í ÀÖÀ½ 
-//mainÀÇ ÀüÃ¼¸¦ °è¼Ó ¸ğ´ÏÅÍ¿¡ Ç¥½ÃÇÏÁö ¾Ê°í(ÀÌ·¸°Ô ÇÏ¸é ¸ğ´ÏÅÍ°¡ ±ôºı°Å¸²) 
-//board_prev¿Í ¹è¿­À» ºñ±³ÇØ¼­ °ªÀÌ ´Ş¶óÁø °÷¸¸ ¸ğ´ÏÅÍ¿¡ °íÄ§ 
-int bx, by; //ÀÌµ¿ÁßÀÎ ºí·ÏÀÇ °ÔÀÓÆÇ»óÀÇ x,yÁÂÇ¥¸¦ ÀúÀå 
+int board_curr[BOARD_Y][BOARD_X]; //ê²Œì„íŒì˜ ì •ë³´ë¥¼ ì €ì¥í•˜ëŠ” ë°°ì—´ ëª¨ë‹ˆí„°ì— í‘œì‹œí›„ì— board_prevë¡œ ë³µì‚¬ë¨ 
+int board_prev[BOARD_Y][BOARD_X]; //ì¦‰ maincpyëŠ” ê²Œì„íŒì´ ëª¨ë‹ˆí„°ì— í‘œì‹œë˜ê¸° ì „ì˜ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆìŒ 
+//mainì˜ ì „ì²´ë¥¼ ê³„ì† ëª¨ë‹ˆí„°ì— í‘œì‹œí•˜ì§€ ì•Šê³ (ì´ë ‡ê²Œ í•˜ë©´ ëª¨ë‹ˆí„°ê°€ ê¹œë¹¡ê±°ë¦¼) 
+//board_prevì™€ ë°°ì—´ì„ ë¹„êµí•´ì„œ ê°’ì´ ë‹¬ë¼ì§„ ê³³ë§Œ ëª¨ë‹ˆí„°ì— ê³ ì¹¨ 
+int bx, by; //ì´ë™ì¤‘ì¸ ë¸”ë¡ì˜ ê²Œì„íŒìƒì˜ x,yì¢Œí‘œë¥¼ ì €ì¥ 
 
-int key; //Å°º¸µå·Î ÀÔ·Â¹ŞÀº Å°°ªÀ» ÀúÀå 
+int key; //í‚¤ë³´ë“œë¡œ ì…ë ¥ë°›ì€ í‚¤ê°’ì„ ì €ì¥ 
 
-int speed; //°ÔÀÓÁøÇà¼Óµµ 
-int level; //ÇöÀç level 
-int level_goal; //´ÙÀ½·¹º§·Î ³Ñ¾î°¡±â À§ÇÑ ¸ñÇ¥Á¡¼ö 
-int cnt; //ÇöÀç ·¹º§¿¡¼­ Á¦°ÅÇÑ ÁÙ ¼ö¸¦ ÀúÀå 
-int score; //ÇöÀç Á¡¼ö 
-int last_score = 0; //¸¶Áö¸·°ÔÀÓÁ¡¼ö 
-int best_score = 0; //ÃÖ°í°ÔÀÓÁ¡¼ö 
+int speed; //ê²Œì„ì§„í–‰ì†ë„ 
+int level; //í˜„ì¬ level 
+int level_goal; //ë‹¤ìŒë ˆë²¨ë¡œ ë„˜ì–´ê°€ê¸° ìœ„í•œ ëª©í‘œì ìˆ˜ 
+int cnt; //í˜„ì¬ ë ˆë²¨ì—ì„œ ì œê±°í•œ ì¤„ ìˆ˜ë¥¼ ì €ì¥ 
+int score; //í˜„ì¬ ì ìˆ˜ 
+int last_score = 0; //ë§ˆì§€ë§‰ê²Œì„ì ìˆ˜ 
+int best_score = 0; //ìµœê³ ê²Œì„ì ìˆ˜ 
 
-int create_nblock_on = 0; //»õ·Î¿î ºí·°ÀÌ ÇÊ¿äÇÔÀ» ¾Ë¸®´Â flag 
-int crush_on = 0; //ÇöÀç ÀÌµ¿ÁßÀÎ ºí·ÏÀÌ Ãæµ¹»óÅÂÀÎÁö ¾Ë·ÁÁÖ´Â flag 
-int level_up_on = 0; //´ÙÀ½·¹º§·Î ÁøÇà(ÇöÀç ·¹º§¸ñÇ¥°¡ ¿Ï·áµÇ¾úÀ½À») ¾Ë¸®´Â flag 
-int space_key_on = 0; //hard drop»óÅÂÀÓÀ» ¾Ë·ÁÁÖ´Â flag 
+int create_nblock_on = 0; //ìƒˆë¡œìš´ ë¸”ëŸ­ì´ í•„ìš”í•¨ì„ ì•Œë¦¬ëŠ” flag 
+int crush_on = 0; //í˜„ì¬ ì´ë™ì¤‘ì¸ ë¸”ë¡ì´ ì¶©ëŒìƒíƒœì¸ì§€ ì•Œë ¤ì£¼ëŠ” flag 
+int level_up_on = 0; //ë‹¤ìŒë ˆë²¨ë¡œ ì§„í–‰(í˜„ì¬ ë ˆë²¨ëª©í‘œê°€ ì™„ë£Œë˜ì—ˆìŒì„) ì•Œë¦¬ëŠ” flag 
+int space_key_on = 0; //hard dropìƒíƒœì„ì„ ì•Œë ¤ì£¼ëŠ” flag 
 
-typedef enum { NOCURSOR, SOLIDCURSOR, NORMALCURSOR } CURSOR_TYPE; //Ä¿¼­¼û±â´Â ÇÔ¼ö¿¡ »ç¿ëµÇ´Â ¿­°ÅÇü 
+typedef enum { NOCURSOR, SOLIDCURSOR, NORMALCURSOR } CURSOR_TYPE; //ì»¤ì„œìˆ¨ê¸°ëŠ” í•¨ìˆ˜ì— ì‚¬ìš©ë˜ëŠ” ì—´ê±°í˜• 
 void setcursortype(CURSOR_TYPE c);
-void start_page(void); //°ÔÀÓ½ÃÀÛÈ­¸é 
-void preset(void); //°ÔÀÓÆÇ ÃÊ±âÈ­ 
-void reset_board_curr(void); //¸ŞÀÎ °ÔÀÓÆÇ(board_curr[][]¸¦ ÃÊ±âÈ­)
-void reset_board_prev(void); //copy °ÔÀÓÆÇ(board_prev[][]¸¦ ÃÊ±âÈ­)
-void draw_status(void); //°ÔÀÓ ÀüÃ¼ ÀÎÅÍÆäÀÌ½º¸¦ Ç¥½Ã 
-void draw_board(void); //°ÔÀÓÆÇÀ» ±×¸² 
-void create_nblock(void); //»õ·Î¿î ºí·ÏÀ» ÇÏ³ª ¸¸µê 
-void check_key(void); //Å°º¸µå·Î Å°¸¦ ÀÔ·Â¹ŞÀ½ 
-void drop_block(void); //ºí·ÏÀ» ¾Æ·¡·Î ¶³¾îÆ®¸² 
-int check_crush(int bx, int by, int rotation); //bx, byÀ§Ä¡¿¡ rotationÈ¸Àü°ªÀ» °°´Â °æ¿ì Ãæµ¹ ÆÇ´Ü 
-void move_block(int dir); //dir¹æÇâÀ¸·Î ºí·ÏÀ» ¿òÁ÷ÀÓ 
-void check_line(void); //ÁÙÀÌ °¡µæÃ¡´ÂÁö¸¦ ÆÇ´ÜÇÏ°í Áö¿ò 
-void check_level_up(void); //·¹º§¸ñÇ¥°¡ ´Ş¼ºµÇ¾ú´ÂÁö¸¦ ÆÇ´ÜÇÏ°í levelup½ÃÅ´ 
-void check_game_over(void); //°ÔÀÓ¿À¹öÀÎÁö ÆÇ´ÜÇÏ°í °ÔÀÓ¿À¹ö¸¦ ÁøÇà 
-void pause(void);//°ÔÀÓÀ» ÀÏ½ÃÁ¤Áö½ÃÅ´ 
+void start_page(void); //ê²Œì„ì‹œì‘í™”ë©´ 
+void preset(void); //ê²Œì„íŒ ì´ˆê¸°í™” 
+void reset_board_curr(void); //ë©”ì¸ ê²Œì„íŒ(board_curr[][]ë¥¼ ì´ˆê¸°í™”)
+void reset_board_prev(void); //copy ê²Œì„íŒ(board_prev[][]ë¥¼ ì´ˆê¸°í™”)
+void draw_status(void); //ê²Œì„ ì „ì²´ ì¸í„°í˜ì´ìŠ¤ë¥¼ í‘œì‹œ 
+void draw_board(void); //ê²Œì„íŒì„ ê·¸ë¦¼ 
+void create_nblock(void); //ìƒˆë¡œìš´ ë¸”ë¡ì„ í•˜ë‚˜ ë§Œë“¦ 
+void check_key(void); //í‚¤ë³´ë“œë¡œ í‚¤ë¥¼ ì…ë ¥ë°›ìŒ 
+void drop_block(void); //ë¸”ë¡ì„ ì•„ë˜ë¡œ ë–¨ì–´íŠ¸ë¦¼ 
+int check_crush(int bx, int by, int rotation); //bx, byìœ„ì¹˜ì— rotationíšŒì „ê°’ì„ ê°™ëŠ” ê²½ìš° ì¶©ëŒ íŒë‹¨ 
+void move_block(int dir); //dirë°©í–¥ìœ¼ë¡œ ë¸”ë¡ì„ ì›€ì§ì„ 
+void check_line(void); //ì¤„ì´ ê°€ë“ì°¼ëŠ”ì§€ë¥¼ íŒë‹¨í•˜ê³  ì§€ì›€ 
+void check_level_up(void); //ë ˆë²¨ëª©í‘œê°€ ë‹¬ì„±ë˜ì—ˆëŠ”ì§€ë¥¼ íŒë‹¨í•˜ê³  levelupì‹œí‚´ 
+void check_game_over(void); //ê²Œì„ì˜¤ë²„ì¸ì§€ íŒë‹¨í•˜ê³  ê²Œì„ì˜¤ë²„ë¥¼ ì§„í–‰ 
+void pause(void);//ê²Œì„ì„ ì¼ì‹œì •ì§€ì‹œí‚´ 
 void gotoxy(int x, int y)
 
-void gotoxy(int x, int y) { //gotoxyÇÔ¼ö 
+void gotoxy(int x, int y) { //gotoxyí•¨ìˆ˜ 
     COORD pos = { 2 * x,y };
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 }
 
-/*================== Ä¿¼­ ¼û±â´Â ÇÔ¼ö =============== */
-void setcursortype(CURSOR_TYPE c) { //Ä¿¼­¼û±â´Â ÇÔ¼ö 
+/*================== ì»¤ì„œ ìˆ¨ê¸°ëŠ” í•¨ìˆ˜ =============== */
+void setcursortype(CURSOR_TYPE c) { //ì»¤ì„œìˆ¨ê¸°ëŠ” í•¨ìˆ˜ 
     CONSOLE_CURSOR_INFO CurInfo;
 
     /*----- */
     switch (c) {
-    case NOCURSOR:  // ¤·¤¤¤©¤¤¤·¤©¤·¤¤¤©
-        CurInfo.dwSize = 1; // ¤·¤©¤¤¤·
+    case NOCURSOR:  // ã…‡ã„´ã„¹ã„´ã…‡ã„¹ã…‡ã„´ã„¹
+        CurInfo.dwSize = 1; // ã…‡ã„¹ã„´ã…‡
         CurInfo.bVisible = FALSE;
         break;
     case SOLIDCURSOR:
@@ -263,107 +263,107 @@ void setcursortype(CURSOR_TYPE c) { //Ä¿¼­¼û±â´Â ÇÔ¼ö
     }
     SetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &CurInfo);
 }
-/*================== Ä¿¼­ ¼û±â´Â ÇÔ¼ö =============== */
+/*================== ì»¤ì„œ ìˆ¨ê¸°ëŠ” í•¨ìˆ˜ =============== */
 int main() {
     int i;
 
-    srand((unsigned)time(NULL)); //³­¼öÇ¥»ı¼º 
-    setcursortype(NOCURSOR); //Ä¿¼­ ¾ø¾Ú 
-    start_page(); //¸ŞÀÎÅ¸ÀÌÆ² È£Ãâ 
-    preset(); //°ÔÀÓÆÇ ¸®¼Â 
+    srand((unsigned)time(NULL)); //ë‚œìˆ˜í‘œìƒì„± 
+    setcursortype(NOCURSOR); //ì»¤ì„œ ì—†ì•° 
+    start_page(); //ë©”ì¸íƒ€ì´í‹€ í˜¸ì¶œ 
+    preset(); //ê²Œì„íŒ ë¦¬ì…‹ 
 
     while (1) 
     {
         for (i = 0; i < 5; i++) 
-        { //ºí·ÏÀÌ ÇÑÄ­¶³¾îÁö´Âµ¿¾È 5¹ø Å°ÀÔ·Â¹ŞÀ» ¼ö ÀÖÀ½ 
-            check_key(); //Å°ÀÔ·ÂÈ®ÀÎ 
-            draw_board(); //È­¸éÀ» ±×¸² 
-            Sleep(speed); //°ÔÀÓ¼ÓµµÁ¶Àı 
+        { //ë¸”ë¡ì´ í•œì¹¸ë–¨ì–´ì§€ëŠ”ë™ì•ˆ 5ë²ˆ í‚¤ì…ë ¥ë°›ì„ ìˆ˜ ìˆìŒ 
+            check_key(); //í‚¤ì…ë ¥í™•ì¸ 
+            draw_board(); //í™”ë©´ì„ ê·¸ë¦¼ 
+            Sleep(speed); //ê²Œì„ì†ë„ì¡°ì ˆ 
             if (crush_on && check_crush(bx, by + 1, b_rotation) == false) Sleep(100);
-            //ºí·ÏÀÌ Ãæµ¹ÁßÀÎ°æ¿ì Ãß°¡·Î ÀÌµ¿¹× È¸ÀüÇÒ ½Ã°£À» °®À½ 
-            if (space_key_on == 1) { //½ºÆäÀÌ½º¹Ù¸¦ ´©¸¥°æ¿ì(hard drop) Ãß°¡·Î ÀÌµ¿¹× È¸ÀüÇÒ¼ö ¾øÀ½ break; 
+            //ë¸”ë¡ì´ ì¶©ëŒì¤‘ì¸ê²½ìš° ì¶”ê°€ë¡œ ì´ë™ë° íšŒì „í•  ì‹œê°„ì„ ê°–ìŒ 
+            if (space_key_on == 1) { //ìŠ¤í˜ì´ìŠ¤ë°”ë¥¼ ëˆ„ë¥¸ê²½ìš°(hard drop) ì¶”ê°€ë¡œ ì´ë™ë° íšŒì „í• ìˆ˜ ì—†ìŒ break; 
                 space_key_on = 0;
                 break;
             }
         }
-        drop_block(); // ºí·ÏÀ» ÇÑÄ­ ³»¸² 
-        check_level_up(); // ·¹º§¾÷À» Ã¼Å© 
-        check_game_over(); //°ÔÀÓ¿À¹ö¸¦ Ã¼Å© 
-        if (create_nblock_on == 1) create_nblock(); // ´º ºí·° flag°¡ ÀÖ´Â °æ¿ì »õ·Î¿î ºí·° »ı¼º 
+        drop_block(); // ë¸”ë¡ì„ í•œì¹¸ ë‚´ë¦¼ 
+        check_level_up(); // ë ˆë²¨ì—…ì„ ì²´í¬ 
+        check_game_over(); //ê²Œì„ì˜¤ë²„ë¥¼ ì²´í¬ 
+        if (create_nblock_on == 1) create_nblock(); // ë‰´ ë¸”ëŸ­ flagê°€ ìˆëŠ” ê²½ìš° ìƒˆë¡œìš´ ë¸”ëŸ­ ìƒì„± 
     }
 }
 
 void start_page(void) 
 {
      
-    // ÄÜ¼Ö ÇÚµéÀ» ¾ò¾î¿É´Ï´Ù.
+    // ì½˜ì†” í•¸ë“¤ì„ ì–»ì–´ì˜µë‹ˆë‹¤.
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-    // ÄÜ¼Ö È­¸é ¹öÆÛ Á¤º¸¸¦ ÀúÀåÇÒ ±¸Á¶Ã¼¸¦ ¼±¾ğ
+    // ì½˜ì†” í™”ë©´ ë²„í¼ ì •ë³´ë¥¼ ì €ì¥í•  êµ¬ì¡°ì²´ë¥¼ ì„ ì–¸
     CONSOLE_SCREEN_BUFFER_INFO consoleInfo;
     int consoleWidth;
     int consoleHeight;
-    // ÄÜ¼Ö È­¸é ¹öÆÛ Á¤º¸ °¡Á®¿È
+    // ì½˜ì†” í™”ë©´ ë²„í¼ ì •ë³´ ê°€ì ¸ì˜´
     if (GetConsoleScreenBufferInfo(hConsole, &consoleInfo)) 
     {
-        // ÄÜ¼ÖÀÇ °¡·Î Å©±â¸¦ °è»ê
+        // ì½˜ì†”ì˜ ê°€ë¡œ í¬ê¸°ë¥¼ ê³„ì‚°
         consoleWidth = consoleInfo.srWindow.Right - consoleInfo.srWindow.Left + 1;
-        // ÄÜ¼ÖÀÇ ¼¼·Î Å©±â¸¦ °è»ê
+        // ì½˜ì†”ì˜ ì„¸ë¡œ í¬ê¸°ë¥¼ ê³„ì‚°
         consoleHeight = consoleInfo.srWindow.Bottom - consoleInfo.srWindow.Top + 1;
 
-        // °è»êµÈ °¡·Î Å©±â¸¦ Ãâ·Â
-        printf("ÄÜ¼Ö °¡·Î Å©±â: %d\n", consoleWidth);
-        // °è»êµÈ ¼¼·Î Å©±â¸¦ Ãâ·Â
-        printf("ÄÜ¼Ö ¼¼·Î Å©±â: %d\n", consoleHeight);
+        // ê³„ì‚°ëœ ê°€ë¡œ í¬ê¸°ë¥¼ ì¶œë ¥
+        printf("ì½˜ì†” ê°€ë¡œ í¬ê¸°: %d\n", consoleWidth);
+        // ê³„ì‚°ëœ ì„¸ë¡œ í¬ê¸°ë¥¼ ì¶œë ¥
+        printf("ì½˜ì†” ì„¸ë¡œ í¬ê¸°: %d\n", consoleHeight);
     }
     else 
     {
-        // ÄÜ¼Ö È­¸é ¹öÆÛ Á¤º¸¸¦ ¾ò¾î¿À´Â µ¥ ½ÇÆĞÇÑ °æ¿ì ¿À·ù ¸Ş½ÃÁö¸¦ Ãâ·Â
-        printf("ÄÜ¼Ö Á¤º¸¸¦ ¾ò¾î¿À´Âµ¥ ½ÇÆĞÇÏ¿´½À´Ï´Ù.\n");
+        // ì½˜ì†” í™”ë©´ ë²„í¼ ì •ë³´ë¥¼ ì–»ì–´ì˜¤ëŠ” ë° ì‹¤íŒ¨í•œ ê²½ìš° ì˜¤ë¥˜ ë©”ì‹œì§€ë¥¼ ì¶œë ¥
+        printf("ì½˜ì†” ì •ë³´ë¥¼ ì–»ì–´ì˜¤ëŠ”ë° ì‹¤íŒ¨í•˜ì˜€ìŠµë‹ˆë‹¤.\n");
     }
 
-    int x = consoleWidth/10; //Å¸ÀÌÆ²È­¸éÀÌ Ç¥½ÃµÇ´Â xÁÂÇ¥ 
-    int y = (consoleHeight-17); //Å¸ÀÌÆ²È­¸éÀÌ Ç¥½ÃµÇ´Â yÁÂÇ¥ 
-    int cnt; //Å¸ÀÌÆ² ÇÁ·¹ÀÓÀ» ¼¼´Â º¯¼ö 
+    int x = consoleWidth/10; //íƒ€ì´í‹€í™”ë©´ì´ í‘œì‹œë˜ëŠ” xì¢Œí‘œ 
+    int y = (consoleHeight-17); //íƒ€ì´í‹€í™”ë©´ì´ í‘œì‹œë˜ëŠ” yì¢Œí‘œ 
+    int cnt; //íƒ€ì´í‹€ í”„ë ˆì„ì„ ì„¸ëŠ” ë³€ìˆ˜ 
 
-    //15x17 »çÀÌÁî ½ºÅ¸Æ® ¾È³»ÆÇ
-    gotoxy(x, y + 0); printf("¡á¡à¡à¡à¡á¡á¡á¡à¡à¡á¡á¡à¡à¡á¡á"); Sleep(100);
-    gotoxy(x, y + 1); printf("¡á¡á¡á¡à  ¡á¡à¡à    ¡á¡á¡à¡à¡á"); Sleep(100);
-    gotoxy(x, y + 2); printf("¡à¡à¡à¡á              ¡à¡á  ¡á"); Sleep(100);
-    gotoxy(x, y + 3); printf("¡á¡á¡à¡á¡á  ¡à  ¡á  ¡à¡à¡á¡à¡à"); Sleep(100);
-    gotoxy(x, y + 4); printf("¡á¡á  ¡á¡à¡à¡à¡á¡á¡á¡à¡á¡á¡à¡à"); Sleep(100);
+    //15x17 ì‚¬ì´ì¦ˆ ìŠ¤íƒ€íŠ¸ ì•ˆë‚´íŒ
+    gotoxy(x, y + 0); printf("â– â–¡â–¡â–¡â– â– â– â–¡â–¡â– â– â–¡â–¡â– â– "); Sleep(100);
+    gotoxy(x, y + 1); printf("â– â– â– â–¡  â– â–¡â–¡    â– â– â–¡â–¡â– "); Sleep(100);
+    gotoxy(x, y + 2); printf("â–¡â–¡â–¡â–               â–¡â–   â– "); Sleep(100);
+    gotoxy(x, y + 3); printf("â– â– â–¡â– â–   â–¡  â–   â–¡â–¡â– â–¡â–¡"); Sleep(100);
+    gotoxy(x, y + 4); printf("â– â–   â– â–¡â–¡â–¡â– â– â– â–¡â– â– â–¡â–¡"); Sleep(100);
     gotoxy(x + 5, y + 2); printf("T E T R I S"); Sleep(100);
     gotoxy(x, y + 7); printf("Please Enter Any Key to Start..");
-    gotoxy(x, y + 9);  printf("   ¡â    : Shift");
-    gotoxy(x, y + 10); printf(" ¢·   ¢¹  : Left / Right");
-    gotoxy(x, y + 11); printf("   ¡ä    : Soft Drop");
+    gotoxy(x, y + 9);  printf("   â–³    : Shift");
+    gotoxy(x, y + 10); printf(" â—   â–·  : Left / Right");
+    gotoxy(x, y + 11); printf("   â–½    : Soft Drop");
     gotoxy(x, y + 12); printf(" SPACE  : Hard Drop");
     gotoxy(x, y + 13); printf("   P    : Pause");
     gotoxy(x, y + 14); printf("  ESC   : Quit");
     gotoxy(x, y + 16); printf("BONUS FOR HARD DROPS / COMBOS");
 
-    for (cnt = 0;; cnt++) { //cnt¸¦ 1¾¿ Áõ°¡½ÃÅ°¸é¼­ °è¼Ó ¹İº¹    //ÇÏ³ªµµ ¾ÈÁß¿äÇÑ º° ¹İÂ¦ÀÌ´Â ¾Ö´Ï¸ŞÀÌ¼ÇÈ¿°ú 
-        if (_kbhit()) break; //Å°ÀÔ·ÂÀÌ ÀÖÀ¸¸é ¹«ÇÑ·çÇÁ Á¾·á 
-        if (cnt % 200 == 0) { gotoxy(x + 4, y + 1); printf("¡Ú"); }       //cnt°¡ 200À¸·Î ³ª´©¾î ¶³¾îÁú¶§ º°À» Ç¥½Ã 
-        if ((cnt % 200 - 100) == 0) { gotoxy(x + 4, y + 1); printf("  "); } //À§ Ä«¿îÆ®¿¡¼­ 100Ä«¿îÆ® °£°İÀ¸·Î º°À» Áö¿ò 
-        if ((cnt % 350) == 0) { gotoxy(x + 13, y + 2); printf("¡Ù"); } //À­º°°ú °°Áö¸¸ ½Ã°£Â÷¸¦ µ×À½ 
+    for (cnt = 0;; cnt++) { //cntë¥¼ 1ì”© ì¦ê°€ì‹œí‚¤ë©´ì„œ ê³„ì† ë°˜ë³µ    //í•˜ë‚˜ë„ ì•ˆì¤‘ìš”í•œ ë³„ ë°˜ì§ì´ëŠ” ì• ë‹ˆë©”ì´ì…˜íš¨ê³¼ 
+        if (_kbhit()) break; //í‚¤ì…ë ¥ì´ ìˆìœ¼ë©´ ë¬´í•œë£¨í”„ ì¢…ë£Œ 
+        if (cnt % 200 == 0) { gotoxy(x + 4, y + 1); printf("â˜…"); }       //cntê°€ 200ìœ¼ë¡œ ë‚˜ëˆ„ì–´ ë–¨ì–´ì§ˆë•Œ ë³„ì„ í‘œì‹œ 
+        if ((cnt % 200 - 100) == 0) { gotoxy(x + 4, y + 1); printf("  "); } //ìœ„ ì¹´ìš´íŠ¸ì—ì„œ 100ì¹´ìš´íŠ¸ ê°„ê²©ìœ¼ë¡œ ë³„ì„ ì§€ì›€ 
+        if ((cnt % 350) == 0) { gotoxy(x + 13, y + 2); printf("â˜†"); } //ìœ—ë³„ê³¼ ê°™ì§€ë§Œ ì‹œê°„ì°¨ë¥¼ ë’€ìŒ 
         if ((cnt % 350 - 100) == 0) { gotoxy(x + 13, y + 2); printf("  "); }
-        Sleep(10); // 00.1ÃÊ µô·¹ÀÌ  
+        Sleep(10); // 00.1ì´ˆ ë”œë ˆì´  
     }
 
-    while (_kbhit()) _getch(); //¹öÆÛ¿¡ ±â·ÏµÈ Å°°ªÀ» ¹ö¸² 
+    while (_kbhit()) _getch(); //ë²„í¼ì— ê¸°ë¡ëœ í‚¤ê°’ì„ ë²„ë¦¼ 
 
 }
 
 void preset(void) {
 
-    FILE* file = fopen("score.dat", "rt"); // score.datÆÄÀÏÀ» ¿¬°á 
-    if (file == 0) { best_score = 0; } //ÆÄÀÏÀÌ ¾øÀ¸¸é °Á ÃÖ°íÁ¡¼ö¿¡ 0À» ³ÖÀ½ 
+    FILE* file = fopen("score.dat", "rt"); // score.datíŒŒì¼ì„ ì—°ê²° 
+    if (file == 0) { best_score = 0; } //íŒŒì¼ì´ ì—†ìœ¼ë©´ ê± ìµœê³ ì ìˆ˜ì— 0ì„ ë„£ìŒ 
     else {
-        fscanf(file, "%d", &best_score); // ÆÄÀÏÀÌ ¿­¸®¸é ÃÖ°íÁ¡¼ö¸¦ ºÒ·¯¿È 
-        fclose(file); //ÆÄÀÏ ´İÀ½ 
+        fscanf(file, "%d", &best_score); // íŒŒì¼ì´ ì—´ë¦¬ë©´ ìµœê³ ì ìˆ˜ë¥¼ ë¶ˆëŸ¬ì˜´ 
+        fclose(file); //íŒŒì¼ ë‹«ìŒ 
     }
 
-    level = 1; //°¢Á¾º¯¼ö ÃÊ±âÈ­ 
+    level = 1; //ê°ì¢…ë³€ìˆ˜ ì´ˆê¸°í™” 
     score = 0;
     level_goal = 1000;
     key = 0;
@@ -371,53 +371,53 @@ void preset(void) {
     cnt = 0;
     speed = 100;
 
-    system("cls"); //È­¸éÁö¿ò 
+    system("cls"); //í™”ë©´ì§€ì›€ 
     reset_board_curr(
     
     
-    ); // board_curr¸¦ ÃÊ±âÈ­ 
-    draw_status(); // °ÔÀÓÈ­¸éÀ» ±×¸²
-    draw_board(); // °ÔÀÓÆÇÀ» ±×¸² 
+    ); // board_currë¥¼ ì´ˆê¸°í™” 
+    draw_status(); // ê²Œì„í™”ë©´ì„ ê·¸ë¦¼
+    draw_board(); // ê²Œì„íŒì„ ê·¸ë¦¼ 
 
-    b_type_next = rand() % 7; //´ÙÀ½¹ø¿¡ ³ª¿Ã ºí·Ï Á¾·ù¸¦ ·£´ıÇÏ°Ô »ı¼º 
-    create_nblock(); //»õ·Î¿î ºí·ÏÀ» ÇÏ³ª ¸¸µê  
+    b_type_next = rand() % 7; //ë‹¤ìŒë²ˆì— ë‚˜ì˜¬ ë¸”ë¡ ì¢…ë¥˜ë¥¼ ëœë¤í•˜ê²Œ ìƒì„± 
+    create_nblock(); //ìƒˆë¡œìš´ ë¸”ë¡ì„ í•˜ë‚˜ ë§Œë“¦  
 
 }
 
-void reset_board_curr(void) { //°ÔÀÓÆÇÀ» ÃÊ±âÈ­  
+void reset_board_curr(void) { //ê²Œì„íŒì„ ì´ˆê¸°í™”  
     int i, j;
 
-    for (i = 0; i < BOARD_Y; i++) { // °ÔÀÓÆÇÀ» 0À¸·Î ÃÊ±âÈ­  
+    for (i = 0; i < BOARD_Y; i++) { // ê²Œì„íŒì„ 0ìœ¼ë¡œ ì´ˆê¸°í™”  
         for (j = 0; j < BOARD_X; j++) {
             board_curr[i][j] = 0;
             board_prev[i][j] = 100;
         }
     }
-    for (j = 1; j < BOARD_X; j++) { //y°ªÀÌ 3ÀÎ À§Ä¡¿¡ ÃµÀåÀ» ¸¸µê 
+    for (j = 1; j < BOARD_X; j++) { //yê°’ì´ 3ì¸ ìœ„ì¹˜ì— ì²œì¥ì„ ë§Œë“¦ 
         board_curr[3][j] = CEILLING;
     }
-    for (i = 1; i < BOARD_Y - 1; i++) { //ÁÂ¿ì º®À» ¸¸µê  
+    for (i = 1; i < BOARD_Y - 1; i++) { //ì¢Œìš° ë²½ì„ ë§Œë“¦  
         board_curr[i][0] = WALL;
         board_curr[i][BOARD_X - 1] = WALL;
     }
-    for (j = 0; j < BOARD_X; j++) { //¹Ù´Úº®À» ¸¸µê 
+    for (j = 0; j < BOARD_X; j++) { //ë°”ë‹¥ë²½ì„ ë§Œë“¦ 
         board_curr[BOARD_Y - 1][j] = WALL;
     }
 }
 
-void reset_board_prev(void) { //board_prev¸¦ ÃÊ±âÈ­ 
+void reset_board_prev(void) { //board_prevë¥¼ ì´ˆê¸°í™” 
     int i, j;
 
-    for (i = 0; i < BOARD_Y; i++) {         //°ÔÀÓÆÇ¿¡ °ÔÀÓ¿¡ »ç¿ëµÇÁö ¾Ê´Â ¼ıÀÚ¸¦ ³ÖÀ½ 
-        for (j = 0; j < BOARD_X; j++) {  //ÀÌ´Â board_curr¿Í °°Àº ¼ıÀÚ°¡ ¾ø°Ô ÇÏ±â À§ÇÔ 
+    for (i = 0; i < BOARD_Y; i++) {         //ê²Œì„íŒì— ê²Œì„ì— ì‚¬ìš©ë˜ì§€ ì•ŠëŠ” ìˆ«ìë¥¼ ë„£ìŒ 
+        for (j = 0; j < BOARD_X; j++) {  //ì´ëŠ” board_currì™€ ê°™ì€ ìˆ«ìê°€ ì—†ê²Œ í•˜ê¸° ìœ„í•¨ 
             board_prev[i][j] = 100;
         }
     }
 }
 
-void draw_status(void) { //°ÔÀÓ »óÅÂ Ç¥½Ã¸¦ ³ªÅ¸³»´Â ÇÔ¼ö  
-    int y = 3;             // level, goal, score¸¸ °ÔÀÓÁß¿¡ °ªÀÌ ¹Ù²ğ¼ö µµ ÀÖÀ½ ±× y°ªÀ» µû·Î ÀúÀåÇØµÒ 
-    // ±×·¡¼­ È¤½Ã °ÔÀÓ »óÅÂ Ç¥½Ã À§Ä¡°¡ ¹Ù²î¾îµµ ±× ÇÔ¼ö¿¡¼­ ¾È¹Ù²ãµµ µÇ°Ô.. 
+void draw_status(void) { //ê²Œì„ ìƒíƒœ í‘œì‹œë¥¼ ë‚˜íƒ€ë‚´ëŠ” í•¨ìˆ˜  
+    int y = 3;             // level, goal, scoreë§Œ ê²Œì„ì¤‘ì— ê°’ì´ ë°”ë€”ìˆ˜ ë„ ìˆìŒ ê·¸ yê°’ì„ ë”°ë¡œ ì €ì¥í•´ë‘  
+    // ê·¸ë˜ì„œ í˜¹ì‹œ ê²Œì„ ìƒíƒœ í‘œì‹œ ìœ„ì¹˜ê°€ ë°”ë€Œì–´ë„ ê·¸ í•¨ìˆ˜ì—ì„œ ì•ˆë°”ê¿”ë„ ë˜ê²Œ.. 
     gotoxy(STATUS_X_ADJ, STATUS_Y_LEVEL = y); printf(" LEVEL : %5d", level);
     gotoxy(STATUS_X_ADJ, STATUS_Y_GOAL = y + 1); printf(" GOAL  : %5d", 10 - cnt);
     gotoxy(STATUS_X_ADJ, y + 2); printf("+-  N E X T  -+ ");
@@ -432,72 +432,82 @@ void draw_status(void) { //°ÔÀÓ »óÅÂ Ç¥½Ã¸¦ ³ªÅ¸³»´Â ÇÔ¼ö
     gotoxy(STATUS_X_ADJ, y + 11); printf("        %6d", last_score);
     gotoxy(STATUS_X_ADJ, y + 12); printf(" BEST SCORE :");
     gotoxy(STATUS_X_ADJ, y + 13); printf("        %6d", best_score);
-    gotoxy(STATUS_X_ADJ, y + 15); printf("  ¡â   : Shift        SPACE : Hard Drop");
-    gotoxy(STATUS_X_ADJ, y + 16); printf("¢·  ¢¹ : Left / Right   P   : Pause");
-    gotoxy(STATUS_X_ADJ, y + 17); printf("  ¡ä   : Soft Drop     ESC  : Quit");
+    gotoxy(STATUS_X_ADJ, y + 15); printf("  â–³   : Shift        SPACE : Hard Drop");
+    gotoxy(STATUS_X_ADJ, y + 16); printf("â—  â–· : Left / Right   P   : Pause");
+    gotoxy(STATUS_X_ADJ, y + 17); printf("  â–½   : Soft Drop     ESC  : Quit");
 }
 
-void draw_board(void) { //°ÔÀÓÆÇ ±×¸®´Â ÇÔ¼ö 
+void draw_board(void) { //ê²Œì„íŒ ê·¸ë¦¬ëŠ” í•¨ìˆ˜ 
     int i, j;
 
-    for (j = 1; j < BOARD_X - 1; j++) { //ÃµÀåÀº °è¼Ó »õ·Î¿îºí·°ÀÌ Áö³ª°¡¼­ Áö¿öÁö¸é »õ·Î ±×·ÁÁÜ 
+    for (j = 1; j < BOARD_X - 1; j++) { //ì²œì¥ì€ ê³„ì† ìƒˆë¡œìš´ë¸”ëŸ­ì´ ì§€ë‚˜ê°€ì„œ ì§€ì›Œì§€ë©´ ìƒˆë¡œ ê·¸ë ¤ì¤Œ 
         if (board_curr[3][j] == EMPTY) board_curr[3][j] = CEILLING;
     }
     for (i = 0; i < BOARD_Y; i++) {
         for (j = 0; j < BOARD_X; j++) {
-            if (board_prev[i][j] != board_curr[i][j]) { //cpy¶û ºñ±³ÇØ¼­ °ªÀÌ ´Ş¶óÁø ºÎºĞ¸¸ »õ·Î ±×·ÁÁÜ.
-                //ÀÌ°Ô ¾øÀ¸¸é °ÔÀÓÆÇÀüÃ¼¸¦ °è¼Ó ±×·Á¼­ ´À·ÁÁö°í ¹İÂ¦°Å¸²
+            if (board_prev[i][j] != board_curr[i][j]) { //cpyë‘ ë¹„êµí•´ì„œ ê°’ì´ ë‹¬ë¼ì§„ ë¶€ë¶„ë§Œ ìƒˆë¡œ ê·¸ë ¤ì¤Œ.
+                //ì´ê²Œ ì—†ìœ¼ë©´ ê²Œì„íŒì „ì²´ë¥¼ ê³„ì† ê·¸ë ¤ì„œ ëŠë ¤ì§€ê³  ë°˜ì§ê±°ë¦¼
                 gotoxy(BOARD_X_ADJ + j, BOARD_Y_ADJ + i);
                 switch (board_curr[i][j]) {
-                case EMPTY: //ºóÄ­¸ğ¾ç 
+                case EMPTY: //ë¹ˆì¹¸ëª¨ì–‘ 
                     printf("  ");
                     break;
-                case CEILLING: //ÃµÀå¸ğ¾ç 
+                case CEILLING: //ì²œì¥ëª¨ì–‘ 
                     printf(". ");
                     break;
-                case WALL: //º®¸ğ¾ç 
-                    printf("¢Ì");
+                case WALL: //ë²½ëª¨ì–‘ 
+                    printf("â–©");
                     break;
-                case INACTIVE_BLOCK: //±»Àº ºí·° ¸ğ¾ç  
-                    printf("¡à");
+                case INACTIVE_BLOCK: //êµ³ì€ ë¸”ëŸ­ ëª¨ì–‘  
+                    printf("â–¡");
                     break;
-                case ACTIVE_BLOCK: //¿òÁ÷ÀÌ°íÀÖ´Â ºí·° ¸ğ¾ç  
-                    printf("¡á");
+                case ACTIVE_BLOCK: //ì›€ì§ì´ê³ ìˆëŠ” ë¸”ëŸ­ ëª¨ì–‘  
+                    printf("â– ");
                     break;
                 }
             }
         }
     }
-    for (i = 0; i < BOARD_Y; i++) { //°ÔÀÓÆÇÀ» ±×¸° ÈÄ board_prev¿¡ º¹»ç  
+    for (i = 0; i < BOARD_Y; i++) { //ê²Œì„íŒì„ ê·¸ë¦° í›„ board_prevì— ë³µì‚¬  
         for (j = 0; j < BOARD_X; j++) {
             board_prev[i][j] = board_curr[i][j];
         }
     }
 }
 
-void create_nblock(void) { //»õ·Î¿î ºí·Ï »ı¼º  
+/*======= ìƒˆë¡œìš´ ë¸”ë¡ ìƒì„± í•¨ìˆ˜ =======*/
+void create_nblock(void)
+{
     int i, j;
 
-    bx = (BOARD_X / 2) - 1; //ºí·Ï »ı¼º À§Ä¡xÁÂÇ¥(°ÔÀÓÆÇÀÇ °¡¿îµ¥) 
-    by = 0;  //ºí·Ï »ı¼ºÀ§Ä¡ yÁÂÇ¥(Á¦ÀÏ À§) 
-    b_type = b_type_next; //´ÙÀ½ºí·°°ªÀ» °¡Á®¿È 
-    b_type_next = rand() % 7; //´ÙÀ½ ºí·°À» ¸¸µê 
-    b_rotation = 0;  //È¸ÀüÀº 0¹øÀ¸·Î °¡Á®¿È 
+    bx = (BOARD_X / 2) - 1; //ë¸”ë¡ ìƒì„± ìœ„ì¹˜xì¢Œí‘œ(ê²Œì„íŒì˜ ê°€ìš´ë°) 
+    by = 0;  //ë¸”ë¡ ìƒì„±ìœ„ì¹˜ yì¢Œí‘œ(ì œì¼ ìœ„) 
 
-    create_nblock_on = 0; //create_nblock flag¸¦ ²û  
+    b_type = b_type_next; //ë‹¤ìŒë¸”ëŸ­ê°’ì„ ê°€ì ¸ì˜´ 
+    b_type_next = rand() % 7; //ë‹¤ìŒ ë¸”ëŸ­ì„ ë§Œë“¦
 
-    for (i = 0; i < 4; i++) { //°ÔÀÓÆÇ bx, byÀ§Ä¡¿¡ ºí·°»ı¼º  
-        for (j = 0; j < 4; j++) {
-            if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = ACTIVE_BLOCK;
+    b_rotation = 0;  //íšŒì „ì€ 0ë²ˆìœ¼ë¡œ ê°€ì ¸ì˜´ 
+    create_nblock_on = 0; //create_nblock flagë¥¼ ë”  
+
+    for (i = 0; i < 4; i++)
+    { /* ê²Œì„íŒ bx, byìœ„ì¹˜ì— ë¸”ëŸ­ìƒì„± */
+        for (j = 0; j < 4; j++)
+        {
+            if (blocks[b_type][b_rotation][i][j] == 1)
+                board_curr[by + i][bx + j] = ACTIVE_BLOCK;
         }
     }
-    for (i = 1; i < 3; i++) { //°ÔÀÓ»óÅÂÇ¥½Ã¿¡ ´ÙÀ½¿¡ ³ª¿Ãºí·°À» ±×¸² 
-        for (j = 0; j < 4; j++) {
-            if (blocks[b_type_next][0][i][j] == 1) {
+    for (i = 1; i < 3; i++) 
+    { /* ê²Œì„ìƒíƒœí‘œì‹œì— ë‹¤ìŒì— ë‚˜ì˜¬ë¸”ëŸ­ì„ ê·¸ë¦¼ */ 
+        for (j = 0; j < 4; j++)
+        {
+            if (blocks[b_type_next][0][i][j] == 1) 
+            {
                 gotoxy(STATUS_X_ADJ + 2 + j, i + 6);
-                printf("¡á");
+                printf("â– ");
             }
-            else {
+            else 
+            {
                 gotoxy(STATUS_X_ADJ + 2 + j, i + 6);
                 printf("  ");
             }
@@ -509,84 +519,105 @@ void create_nblock(void) { //»õ·Î¿î ºí·Ï »ı¼º
 void drop_block(void) {
     int i, j;
 
-    if (crush_on && check_crush(bx, by + 1, b_rotation) == true) crush_on = 0; //¹ØÀÌ ºñ¾îÀÖÀ¸¸é crush flag ²û 
+    if (crush_on && check_crush(bx, by + 1, b_rotation) == true) crush_on = 0; //ë°‘ì´ ë¹„ì–´ìˆìœ¼ë©´ crush flag ë” 
     if (crush_on && check_crush(bx, by + 1, b_rotation) == false) { 
-        //¹ØÀÌ ºñ¾îÀÖÁö¾Ê°í crush flag°¡ ÄÑÀúÀÖÀ¸¸é 
-        for (i = 0; i < BOARD_Y; i++) { //ÇöÀç Á¶ÀÛÁßÀÎ ºí·°À» ±»Èû 
+        //ë°‘ì´ ë¹„ì–´ìˆì§€ì•Šê³  crush flagê°€ ì¼œì €ìˆìœ¼ë©´ 
+        for (i = 0; i < BOARD_Y; i++) { //í˜„ì¬ ì¡°ì‘ì¤‘ì¸ ë¸”ëŸ­ì„ êµ³í˜ 
             for (j = 0; j < BOARD_X; j++) {
                 if (board_curr[i][j] == ACTIVE_BLOCK) board_curr[i][j] = INACTIVE_BLOCK;
             }
         }
-        crush_on = 0; //flag¸¦ ²û 
-        check_line(); //¶óÀÎÃ¼Å©¸¦ ÇÔ 
-        create_nblock_on = 1; //»õ·Î¿î ºí·°»ı¼º flag¸¦ ÄÔ    
-        return; //ÇÔ¼ö Á¾·á 
+        crush_on = 0; //flagë¥¼ ë” 
+        check_line(); //ë¼ì¸ì²´í¬ë¥¼ í•¨ 
+        create_nblock_on = 1; //ìƒˆë¡œìš´ ë¸”ëŸ­ìƒì„± flagë¥¼ ì¼¬    
+        return; //í•¨ìˆ˜ ì¢…ë£Œ 
     }
 
-    if (check_crush(bx, by + 1, b_rotation) == true) move_block(DOWN); //¹ØÀÌ ºñ¾îÀÖÀ¸¸é ¹ØÀ¸·Î ÇÑÄ­ ÀÌµ¿ 
-    if (check_crush(bx, by + 1, b_rotation) == false) crush_on++; //¹ØÀ¸·Î ÀÌµ¿ÀÌ ¾ÈµÇ¸é  crush flag¸¦ ÄÔ
+    if (check_crush(bx, by + 1, b_rotation) == true) move_block(DOWN); //ë°‘ì´ ë¹„ì–´ìˆìœ¼ë©´ ë°‘ìœ¼ë¡œ í•œì¹¸ ì´ë™ 
+    if (check_crush(bx, by + 1, b_rotation) == false) crush_on++; //ë°‘ìœ¼ë¡œ ì´ë™ì´ ì•ˆë˜ë©´  crush flagë¥¼ ì¼¬
 }
 
-int check_crush(int bx, int by, int b_rotation) { //ÁöÁ¤µÈ ÁÂÇ¥¿Í È¸Àü°ªÀ¸·Î Ãæµ¹ÀÌ ÀÖ´ÂÁö °Ë»ç 
+/*======= ë¸”ë¡ ì¶©ëŒ ê²€ì‚¬ í•¨ìˆ˜ =======*/
+int check_crush(int bx, int by, int b_rotation)
+{ /* ì§€ì •ëœ ì¢Œí‘œì™€ íšŒì „ê°’ìœ¼ë¡œ ì¶©ëŒì´ ìˆëŠ”ì§€ ê²€ì‚¬ */
     int i, j;
 
-    for (i = 0; i < 4; i++) {
-        for (j = 0; j < 4; j++) { //ÁöÁ¤µÈ À§Ä¡ÀÇ °ÔÀÓÆÇ°ú ºí·°¸ğ¾çÀ» ºñ±³ÇØ¼­ °ãÄ¡¸é false¸¦ ¸®ÅÏ 
-            if (blocks[b_type][b_rotation][i][j] == 1 && board_curr[by + i][bx + j] > 0) return false;
+    for (i = 0; i < 4; i++) 
+    {
+        for (j = 0; j < 4; j++) 
+        { /* ì§€ì •ëœ ìœ„ì¹˜ì˜ ê²Œì„íŒê³¼ ë¸”ëŸ­ëª¨ì–‘ì„ ë¹„êµí•´ì„œ ê²¹ì¹˜ë©´ falseë¥¼ ë¦¬í„´ */
+            if (blocks[b_type][b_rotation][i][j] == 1 && board_curr[by + i][bx + j] > 0) 
+                return false;
         }
     }
-    return true; //ÇÏ³ªµµ ¾È°ãÄ¡¸é true¸®ÅÏ 
+    return true; //í•˜ë‚˜ë„ ì•ˆê²¹ì¹˜ë©´ trueë¦¬í„´ 
 };
 
-
-void check_line(void) {
+/*======= ë¼ì¸ì´ ì§€ì›Œì§€ëŠ”ì§€ ê²€ì‚¬í•˜ëŠ” í•¨ìˆ˜ =======*/
+void check_line(void)  
+{                  
     int i, j, k, l;
 
-    int    block_amount; //ÇÑÁÙÀÇ ºí·Ï°¹¼ö¸¦ ÀúÀåÇÏ´Â º¯¼ö 
-    int combo = 0; //ÄŞº¸°¹¼ö ÀúÀåÇÏ´Â º¯¼ö ÁöÁ¤¹× ÃÊ±âÈ­ 
+    int block_amount; //í•œì¤„ì˜ ë¸”ë¡ê°œìˆ˜ë¥¼ ì €ì¥í•˜ëŠ” ë³€ìˆ˜ 
+    int combo = 0; //ì½¤ë³´ê°œìˆ˜ ì €ì¥í•˜ëŠ” ë³€ìˆ˜ ì§€ì •ë° ì´ˆê¸°í™” 
 
-    for (i = BOARD_Y - 2; i > 3;) { //i=BOARD_Y-2 : ¹ØÂÊº®ÀÇ À­Ä­ºÎÅÍ,  i>3 : ÃµÀå(3)¾Æ·¡±îÁö °Ë»ç 
-        block_amount = 0; //ºí·Ï°¹¼ö ÀúÀå º¯¼ö ÃÊ±âÈ­ 
-        for (j = 1; j < BOARD_X - 1; j++) { //º®°ú º®»çÀÌÀÇ ºí·Ï°¹¼ö¸¦ ¼À 
-            if (board_curr[i][j] > 0) block_amount++;
+    for (i = BOARD_Y - 2; i > 3;) 
+    { /* i = BOARD_Y - 2 : ë°‘ìª½ë²½ì˜ ìœ—ì¹¸ë¶€í„°, i>3 : ì²œì¥(3)ì•„ë˜ê¹Œì§€ ê²€ì‚¬ */
+        block_amount = 0; //ë¸”ë¡ê°œìˆ˜ ì €ì¥ ë³€ìˆ˜ ì´ˆê¸°í™” 
+        
+        for (j = 1; j < BOARD_X - 1; j++) 
+        { /* ë²½ê³¼ ë²½ì‚¬ì´ì˜ ë¸”ë¡ê°œìˆ˜ë¥¼ ì…ˆ */
+            if (board_curr[i][j] > 0) 
+                block_amount++;
         }
-        if (block_amount == BOARD_X - 2) { //ºí·ÏÀÌ °¡µæ Âù °æ¿ì 
-            if (level_up_on == 0) { //·¹º§¾÷»óÅÂ°¡ ¾Æ´Ñ °æ¿ì¿¡(·¹º§¾÷ÀÌ µÇ¸é ÀÚµ¿ ÁÙ»èÁ¦°¡ ÀÖÀ½) 
-                score += 100 * level; //Á¡¼öÃß°¡ 
-                cnt++; //Áö¿î ÁÙ °¹¼ö Ä«¿îÆ® Áõ°¡ 
-                combo++; //ÄŞº¸¼ö Áõ°¡  
+        
+        if (block_amount == BOARD_X - 2) //ë¸”ë¡ì´ ê°€ë“ ì°¬ ê²½ìš° 
+        {  
+            if (level_up_on == 0) //ë ˆë²¨ì—…ìƒíƒœê°€ ì•„ë‹Œ ê²½ìš°ì—(ë ˆë²¨ì—…ì´ ë˜ë©´ ìë™ ì¤„ì‚­ì œê°€ ìˆìŒ)
+            {  
+                score += 100 * level; //ì ìˆ˜ì¶”ê°€ 
+                cnt++; //ì§€ìš´ ì¤„ ê°œìˆ˜ ì¹´ìš´íŠ¸ ì¦ê°€ 
+                combo++; //ì½¤ë³´ìˆ˜ ì¦ê°€  
             }
-            for (k = i; k > 1; k--) { //À­ÁÙÀ» ÇÑÄ­¾¿ ¸ğµÎ ³»¸²(À­ÁÙÀÌ ÃµÀåÀÌ ¾Æ´Ñ °æ¿ì¿¡¸¸) 
-                for (l = 1; l < BOARD_X - 1; l++) {
-                    if (board_curr[k - 1][l] != CEILLING) board_curr[k][l] = board_curr[k - 1][l];
-                    if (board_curr[k - 1][l] == CEILLING) board_curr[k][l] = EMPTY;
-                    //À­ÁÙÀÌ ÃµÀåÀÎ °æ¿ì¿¡´Â ÃµÀåÀ» ÇÑÄ­ ³»¸®¸é ¾ÈµÇ´Ï±î ºóÄ­À» ³ÖÀ½ 
+            for (k = i; k > 1; k--) 
+            { /* ìœ—ì¤„ì„ í•œì¹¸ì”© ëª¨ë‘ ë‚´ë¦¼(ìœ—ì¤„ì´ ì²œì¥ì´ ì•„ë‹Œ ê²½ìš°ì—ë§Œ) */
+                for (l = 1; l < BOARD_X - 1; l++)
+                {
+                    if (board_curr[k - 1][l] != CEILLING) 
+                        board_curr[k][l] = board_curr[k - 1][l];
+                    if (board_curr[k - 1][l] == CEILLING) 
+                        board_curr[k][l] = EMPTY; //ìœ—ì¤„ì´ ì²œì¥ì¸ ê²½ìš°ì—ëŠ” ì²œì¥ì„ í•œì¹¸ ë‚´ë¦¬ë©´ ì•ˆë˜ë‹ˆê¹Œ ë¹ˆì¹¸ì„ ë„£ìŒ 
                 }
             }
         }
         else i--;
     }
-    if (combo) { //ÁÙ »èÁ¦°¡ ÀÖ´Â °æ¿ì Á¡¼ö¿Í ·¹º§ ¸ñÇ¥¸¦ »õ·Î Ç¥½ÃÇÔ  
-        if (combo > 1) { //2ÄŞº¸ÀÌ»óÀÎ °æ¿ì °æ¿ì º¸³Ê½º¹× ¸Ş¼¼Áö¸¦ °ÔÀÓÆÇ¿¡ ¶ç¿ü´Ù°¡ Áö¿ò 
-            gotoxy(BOARD_X_ADJ + (BOARD_X / 2) - 1, BOARD_Y_ADJ + by - 2); printf("%d COMBO!", combo);
+    if (combo) //ì½¤ë³´ê°€ ìˆëŠ” ê²½ìš° ì ìˆ˜ì™€ ë ˆë²¨ ëª©í‘œë¥¼ ìƒˆë¡œ í‘œì‹œí•¨ 
+    {   
+        if (combo > 1) //2ì½¤ë³´ì´ìƒì¸ ê²½ìš° ê²½ìš° ë³´ë„ˆìŠ¤ë° ë©”ì„¸ì§€ë¥¼ ê²Œì„íŒì— ë„ì› ë‹¤ê°€ ì§€ì›€ 
+        {  
+            gotoxy(BOARD_X_ADJ + (BOARD_X / 2) - 1, BOARD_Y_ADJ + by - 2); 
+            printf("%d COMBO!", combo);
             Sleep(500);
             score += (combo * level * 100);
-            reset_board_prev(); //ÅØ½ºÆ®¸¦ Áö¿ì±â À§ÇØ board_prevÀ» ÃÊ±âÈ­.
-            //(board_prev¿Í board_curr°¡ ÀüºÎ ´Ù¸£¹Ç·Î ´ÙÀ½¹ø draw()È£Ãâ½Ã °ÔÀÓÆÇ ÀüÃ¼¸¦ »õ·Î ±×¸®°Ô µÊ) 
+            reset_board_prev(); //í…ìŠ¤íŠ¸ë¥¼ ì§€ìš°ê¸° ìœ„í•´ board_prevì„ ì´ˆê¸°í™”.
+            //(board_prevì™€ board_currê°€ ì „ë¶€ ë‹¤ë¥´ë¯€ë¡œ ë‹¤ìŒë²ˆ draw()í˜¸ì¶œì‹œ ê²Œì„íŒ ì „ì²´ë¥¼ ìƒˆë¡œ ê·¸ë¦¬ê²Œ ë¨) 
         }
-        gotoxy(STATUS_X_ADJ, STATUS_Y_GOAL); printf(" GOAL  : %5d", (cnt <= 10) ? 10 - cnt : 0);
-        gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE); printf("        %6d", score);
+        gotoxy(STATUS_X_ADJ, STATUS_Y_GOAL); 
+        printf(" GOAL  : %5d", (cnt <= 10) ? 10 - cnt : 0);
+        gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE);
+        printf("        %6d", score);
     }
 }
 
 void check_level_up(void) {
     int i, j;
 
-    if (cnt >= 10) { //·¹º§º°·Î 10ÁÙ¾¿ ¾ø¾Ö¾ßÇÔ. 10ÁÙÀÌ»ó ¾ø¾Ø °æ¿ì 
+    if (cnt >= 10) { //ë ˆë²¨ë³„ë¡œ 10ì¤„ì”© ì—†ì• ì•¼í•¨. 10ì¤„ì´ìƒ ì—†ì•¤ ê²½ìš° 
         draw_board();
-        level_up_on = 1; //·¹º§¾÷ flag¸¦ ¶ç¿ò 
-        level += 1; //·¹º§À» 1 ¿Ã¸² 
-        cnt = 0; //Áö¿î ÁÙ¼ö ÃÊ±âÈ­   
+        level_up_on = 1; //ë ˆë²¨ì—… flagë¥¼ ë„ì›€ 
+        level += 1; //ë ˆë²¨ì„ 1 ì˜¬ë¦¼ 
+        cnt = 0; //ì§€ìš´ ì¤„ìˆ˜ ì´ˆê¸°í™”   
 
         for (i = 0; i < 4; i++) {
             gotoxy(BOARD_X_ADJ + (BOARD_X / 2) - 3, BOARD_Y_ADJ + 4);
@@ -596,26 +627,26 @@ void check_level_up(void) {
             Sleep(200);
 
             gotoxy(BOARD_X_ADJ + (BOARD_X / 2) - 3, BOARD_Y_ADJ + 4);
-            printf("¡ÙLEVEL UP!¡Ù");
+            printf("â˜†LEVEL UP!â˜†");
             gotoxy(BOARD_X_ADJ + (BOARD_X / 2) - 2, BOARD_Y_ADJ + 6);
-            printf("¡ÙSPEED UP!¡Ù");
+            printf("â˜†SPEED UP!â˜†");
             Sleep(200);
         }
-        reset_board_prev(); //ÅØ½ºÆ®¸¦ Áö¿ì±â À§ÇØ board_prevÀ» ÃÊ±âÈ­.
-        //(board_prev¿Í board_curr°¡ ÀüºÎ ´Ù¸£¹Ç·Î ´ÙÀ½¹ø draw()È£Ãâ½Ã °ÔÀÓÆÇ ÀüÃ¼¸¦ »õ·Î ±×¸®°Ô µÊ) 
+        reset_board_prev(); //í…ìŠ¤íŠ¸ë¥¼ ì§€ìš°ê¸° ìœ„í•´ board_prevì„ ì´ˆê¸°í™”.
+        //(board_prevì™€ board_currê°€ ì „ë¶€ ë‹¤ë¥´ë¯€ë¡œ ë‹¤ìŒë²ˆ draw()í˜¸ì¶œì‹œ ê²Œì„íŒ ì „ì²´ë¥¼ ìƒˆë¡œ ê·¸ë¦¬ê²Œ ë¨) 
 
-        for (i = BOARD_Y - 2; i > BOARD_Y - 2 - (level - 1); i--) { //·¹º§¾÷º¸»óÀ¸·Î °¢ ·¹º§-1ÀÇ ¼ö¸¸Å­ ¾Æ·§ÂÊ ÁÙÀ» Áö¿öÁÜ 
+        for (i = BOARD_Y - 2; i > BOARD_Y - 2 - (level - 1); i--) { //ë ˆë²¨ì—…ë³´ìƒìœ¼ë¡œ ê° ë ˆë²¨-1ì˜ ìˆ˜ë§Œí¼ ì•„ë«ìª½ ì¤„ì„ ì§€ì›Œì¤Œ 
             for (j = 1; j < BOARD_X - 1; j++) {
-                board_curr[i][j] = INACTIVE_BLOCK; // ÁÙÀ» ºí·ÏÀ¸·Î ¸ğµÎ Ã¤¿ì°í 
-                gotoxy(BOARD_X_ADJ + j, BOARD_Y_ADJ + i); // º°À» Âï¾îÁÜ.. ÀÌ»µº¸ÀÌ°Ô 
-                printf("¡Ú");
+                board_curr[i][j] = INACTIVE_BLOCK; // ì¤„ì„ ë¸”ë¡ìœ¼ë¡œ ëª¨ë‘ ì±„ìš°ê³  
+                gotoxy(BOARD_X_ADJ + j, BOARD_Y_ADJ + i); // ë³„ì„ ì°ì–´ì¤Œ.. ì´ë»ë³´ì´ê²Œ 
+                printf("â˜…");
                 Sleep(20);
             }
         }
-        Sleep(100); //º°ÂïÀº°Å º¸¿©ÁÖ±â À§ÇØ delay 
-        check_line(); //ºí·ÏÀ¸·Î ¸ğµÎ Ã¤¿î°Í Áö¿ì±â
-        //.check_line()ÇÔ¼ö ³»ºÎ¿¡¼­ level up flag°¡ ÄÑÁ®ÀÖ´Â °æ¿ì Á¡¼ö´Â ¾øÀ½.         
-        switch (level) { //·¹º§º°·Î ¼Óµµ¸¦ Á¶ÀıÇØÁÜ. 
+        Sleep(100); //ë³„ì°ì€ê±° ë³´ì—¬ì£¼ê¸° ìœ„í•´ delay 
+        check_line(); //ë¸”ë¡ìœ¼ë¡œ ëª¨ë‘ ì±„ìš´ê²ƒ ì§€ìš°ê¸°
+        //.check_line()í•¨ìˆ˜ ë‚´ë¶€ì—ì„œ level up flagê°€ ì¼œì ¸ìˆëŠ” ê²½ìš° ì ìˆ˜ëŠ” ì—†ìŒ.         
+        switch (level) { //ë ˆë²¨ë³„ë¡œ ì†ë„ë¥¼ ì¡°ì ˆí•´ì¤Œ. 
         case 2:
             speed = 50;
             break;
@@ -644,34 +675,34 @@ void check_level_up(void) {
             speed = 0;
             break;
         }
-        level_up_on = 0; //·¹º§¾÷ flag²¨ÁÜ
+        level_up_on = 0; //ë ˆë²¨ì—… flagêº¼ì¤Œ
 
-        gotoxy(STATUS_X_ADJ, STATUS_Y_LEVEL); printf(" LEVEL : %5d", level); //·¹º§Ç¥½Ã 
-        gotoxy(STATUS_X_ADJ, STATUS_Y_GOAL); printf(" GOAL  : %5d", 10 - cnt); // ·¹º§¸ñÇ¥ Ç¥½Ã 
+        gotoxy(STATUS_X_ADJ, STATUS_Y_LEVEL); printf(" LEVEL : %5d", level); //ë ˆë²¨í‘œì‹œ 
+        gotoxy(STATUS_X_ADJ, STATUS_Y_GOAL); printf(" GOAL  : %5d", 10 - cnt); // ë ˆë²¨ëª©í‘œ í‘œì‹œ 
 
     }
 }
 #include "basic.h"
 
-void move_block(int dir) { //ºí·ÏÀ» ÀÌ µ¿½ÃÅ´ 
+void move_block(int dir) { //ë¸”ë¡ì„ ì´ ë™ì‹œí‚´ 
     int i, j;
 
     switch (dir) {
-    case LEFT: //¿ŞÂÊ¹æÇâ 
-        for (i = 0; i < 4; i++) { //ÇöÀçÁÂÇ¥ÀÇ ºí·°À» Áö¿ò 
+    case LEFT: //ì™¼ìª½ë°©í–¥ 
+        for (i = 0; i < 4; i++) { //í˜„ì¬ì¢Œí‘œì˜ ë¸”ëŸ­ì„ ì§€ì›€ 
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
             }
         }
-        for (i = 0; i < 4; i++) { //¿ŞÂÊÀ¸·Î ÇÑÄ­°¡¼­ active blockÀ» ÂïÀ½ 
+        for (i = 0; i < 4; i++) { //ì™¼ìª½ìœ¼ë¡œ í•œì¹¸ê°€ì„œ active blockì„ ì°ìŒ 
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j - 1] = ACTIVE_BLOCK;
             }
         }
-        bx--; //ÁÂÇ¥°ª ÀÌµ¿ 
+        bx--; //ì¢Œí‘œê°’ ì´ë™ 
         break;
 
-    case RIGHT:    //¿À¸¥ÂÊ ¹æÇâ. ¿ŞÂÊ¹æÇâÀÌ¶û °°Àº ¿ø¸®·Î µ¿ÀÛ 
+    case RIGHT:    //ì˜¤ë¥¸ìª½ ë°©í–¥. ì™¼ìª½ë°©í–¥ì´ë‘ ê°™ì€ ì›ë¦¬ë¡œ ë™ì‘ 
         for (i = 0; i < 4; i++) {
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
@@ -685,7 +716,7 @@ void move_block(int dir) { //ºí·ÏÀ» ÀÌ µ¿½ÃÅ´
         bx++;
         break;
 
-    case DOWN:    //¾Æ·¡ÂÊ ¹æÇâ. ¿ŞÂÊ¹æÇâÀÌ¶û °°Àº ¿ø¸®·Î µ¿ÀÛ
+    case DOWN:    //ì•„ë˜ìª½ ë°©í–¥. ì™¼ìª½ë°©í–¥ì´ë‘ ê°™ì€ ì›ë¦¬ë¡œ ë™ì‘
         for (i = 0; i < 4; i++) {
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
@@ -699,22 +730,22 @@ void move_block(int dir) { //ºí·ÏÀ» ÀÌ µ¿½ÃÅ´
         by++;
         break;
 
-    case UP: //Å°º¸µå À§ÂÊ ´­·¶À»¶§ È¸Àü½ÃÅ´. 
-        for (i = 0; i < 4; i++) { //ÇöÀçÁÂÇ¥ÀÇ ºí·°À» Áö¿ò  
+    case UP: //í‚¤ë³´ë“œ ìœ„ìª½ ëˆŒë €ì„ë•Œ íšŒì „ì‹œí‚´. 
+        for (i = 0; i < 4; i++) { //í˜„ì¬ì¢Œí‘œì˜ ë¸”ëŸ­ì„ ì§€ì›€  
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
             }
         }
-        b_rotation = (b_rotation + 1) % 4; //È¸Àü°ªÀ» 1Áõ°¡½ÃÅ´(3¿¡¼­ 4°¡ µÇ´Â °æ¿ì´Â 0À¸·Î µÇµ¹¸²) 
-        for (i = 0; i < 4; i++) { //È¸ÀüµÈ ºí·ÏÀ» ÂïÀ½ 
+        b_rotation = (b_rotation + 1) % 4; //íšŒì „ê°’ì„ 1ì¦ê°€ì‹œí‚´(3ì—ì„œ 4ê°€ ë˜ëŠ” ê²½ìš°ëŠ” 0ìœ¼ë¡œ ë˜ëŒë¦¼) 
+        for (i = 0; i < 4; i++) { //íšŒì „ëœ ë¸”ë¡ì„ ì°ìŒ 
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = ACTIVE_BLOCK;
             }
         }
         break;
 
-    case 100: //ºí·ÏÀÌ ¹Ù´Ú, È¤Àº ´Ù¸¥ ºí·Ï°ú ´êÀº »óÅÂ¿¡¼­ ÇÑÄ­À§·Î ¿Ã·Á È¸ÀüÀÌ °¡´ÉÇÑ °æ¿ì 
-        //ÀÌ¸¦ µ¿ÀÛ½ÃÅ°´Â Æ¯¼öµ¿ÀÛ 
+    case 100: //ë¸”ë¡ì´ ë°”ë‹¥, í˜¹ì€ ë‹¤ë¥¸ ë¸”ë¡ê³¼ ë‹¿ì€ ìƒíƒœì—ì„œ í•œì¹¸ìœ„ë¡œ ì˜¬ë ¤ íšŒì „ì´ ê°€ëŠ¥í•œ ê²½ìš° 
+        //ì´ë¥¼ ë™ì‘ì‹œí‚¤ëŠ” íŠ¹ìˆ˜ë™ì‘ 
         for (i = 0; i < 4; i++) {
             for (j = 0; j < 4; j++) {
                 if (blocks[b_type][b_rotation][i][j] == 1) board_curr[by + i][bx + j] = EMPTY;
@@ -733,49 +764,49 @@ void move_block(int dir) { //ºí·ÏÀ» ÀÌ µ¿½ÃÅ´
 
 
 void check_key(void) {
-    key = 0; //Å°°ª ÃÊ±âÈ­  
+    key = 0; //í‚¤ê°’ ì´ˆê¸°í™”  
 
-    if (_kbhit()) { //Å°ÀÔ·ÂÀÌ ÀÖ´Â °æ¿ì  
-        key = _getch(); //Å°°ªÀ» ¹ŞÀ½
-        if (key == 224) { //¹æÇâÅ°ÀÎ°æ¿ì 
-            do { key = _getch(); } while (key == 224);//¹æÇâÅ°Áö½Ã°ªÀ» ¹ö¸² 
+    if (_kbhit()) { //í‚¤ì…ë ¥ì´ ìˆëŠ” ê²½ìš°  
+        key = _getch(); //í‚¤ê°’ì„ ë°›ìŒ
+        if (key == 224) { //ë°©í–¥í‚¤ì¸ê²½ìš° 
+            do { key = _getch(); } while (key == 224);//ë°©í–¥í‚¤ì§€ì‹œê°’ì„ ë²„ë¦¼ 
             switch (key) {
-            case LEFT: //¿ŞÂÊÅ° ´­·¶À»¶§  
+            case LEFT: //ì™¼ìª½í‚¤ ëˆŒë €ì„ë•Œ  
                 if (check_crush(bx - 1, by, b_rotation) == true) move_block(LEFT);
-                break;                            //¿ŞÂÊÀ¸·Î °¥ ¼ö ÀÖ´ÂÁö Ã¼Å© ÈÄ °¡´ÉÇÏ¸é ÀÌµ¿
-            case RIGHT: //¿À¸¥ÂÊ ¹æÇâÅ° ´­·¶À»¶§- À§¿Í µ¿ÀÏÇÏ°Ô Ã³¸®µÊ 
+                break;                            //ì™¼ìª½ìœ¼ë¡œ ê°ˆ ìˆ˜ ìˆëŠ”ì§€ ì²´í¬ í›„ ê°€ëŠ¥í•˜ë©´ ì´ë™
+            case RIGHT: //ì˜¤ë¥¸ìª½ ë°©í–¥í‚¤ ëˆŒë €ì„ë•Œ- ìœ„ì™€ ë™ì¼í•˜ê²Œ ì²˜ë¦¬ë¨ 
                 if (check_crush(bx + 1, by, b_rotation) == true) move_block(RIGHT);
                 break;
-            case DOWN: //¾Æ·¡ÂÊ ¹æÇâÅ° ´­·¶À»¶§-À§¿Í µ¿ÀÏÇÏ°Ô Ã³¸®µÊ 
+            case DOWN: //ì•„ë˜ìª½ ë°©í–¥í‚¤ ëˆŒë €ì„ë•Œ-ìœ„ì™€ ë™ì¼í•˜ê²Œ ì²˜ë¦¬ë¨ 
                 if (check_crush(bx, by + 1, b_rotation) == true) move_block(DOWN);
                 break;
-            case UP: //À§ÂÊ ¹æÇâÅ° ´­·¶À»¶§ 
+            case UP: //ìœ„ìª½ ë°©í–¥í‚¤ ëˆŒë €ì„ë•Œ 
                 if (check_crush(bx, by, (b_rotation + 1) % 4) == true) move_block(UP);
-                //È¸ÀüÇÒ ¼ö ÀÖ´ÂÁö Ã¼Å© ÈÄ °¡´ÉÇÏ¸é È¸Àü
+                //íšŒì „í•  ìˆ˜ ìˆëŠ”ì§€ ì²´í¬ í›„ ê°€ëŠ¥í•˜ë©´ íšŒì „
                 else if (crush_on == 1 && check_crush(bx, by - 1, (b_rotation + 1) % 4) == true) move_block(100);
-            }                    //¹Ù´Ú¿¡ ´êÀº °æ¿ì À§ÂÊÀ¸·Î ÇÑÄ­¶ç¿ö¼­ È¸ÀüÀÌ °¡´ÉÇÏ¸é ±×·¸°Ô ÇÔ(Æ¯¼öµ¿ÀÛ)
+            }                    //ë°”ë‹¥ì— ë‹¿ì€ ê²½ìš° ìœ„ìª½ìœ¼ë¡œ í•œì¹¸ë„ì›Œì„œ íšŒì „ì´ ê°€ëŠ¥í•˜ë©´ ê·¸ë ‡ê²Œ í•¨(íŠ¹ìˆ˜ë™ì‘)
         }
-        else { //¹æÇâÅ°°¡ ¾Æ´Ñ°æ¿ì 
+        else { //ë°©í–¥í‚¤ê°€ ì•„ë‹Œê²½ìš° 
             switch (key) {
-            case SPACE: //½ºÆäÀÌ½ºÅ° ´­·¶À»¶§ 
-                space_key_on = 1; //½ºÆäÀÌ½ºÅ° flag¸¦ ¶ç¿ò 
-                while (crush_on == 0) { //¹Ù´Ú¿¡ ´êÀ»¶§±îÁö ÀÌµ¿½ÃÅ´ 
+            case SPACE: //ìŠ¤í˜ì´ìŠ¤í‚¤ ëˆŒë €ì„ë•Œ 
+                space_key_on = 1; //ìŠ¤í˜ì´ìŠ¤í‚¤ flagë¥¼ ë„ì›€ 
+                while (crush_on == 0) { //ë°”ë‹¥ì— ë‹¿ì„ë•Œê¹Œì§€ ì´ë™ì‹œí‚´ 
                     drop_block();
-                    score += level; // hard drop º¸³Ê½º
-                    gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE); printf("        %6d", score); //Á¡¼ö Ç¥½Ã  
+                    score += level; // hard drop ë³´ë„ˆìŠ¤
+                    gotoxy(STATUS_X_ADJ, STATUS_Y_SCORE); printf("        %6d", score); //ì ìˆ˜ í‘œì‹œ  
                 }
                 break;
-            case P: //P(´ë¹®ÀÚ) ´­·¶À»¶§ 
-            case p: //p(¼Ò¹®ÀÚ) ´­·¶À»¶§ 
-                pause(); //ÀÏ½ÃÁ¤Áö 
+            case P: //P(ëŒ€ë¬¸ì) ëˆŒë €ì„ë•Œ 
+            case p: //p(ì†Œë¬¸ì) ëˆŒë €ì„ë•Œ 
+                pause(); //ì¼ì‹œì •ì§€ 
                 break;
-            case ESC: //ESC´­·¶À»¶§ 
-                system("cls"); //È­¸éÀ» Áö¿ì°í 
-                exit(0); //°ÔÀÓÁ¾·á 
+            case ESC: //ESCëˆŒë €ì„ë•Œ 
+                system("cls"); //í™”ë©´ì„ ì§€ìš°ê³  
+                exit(0); //ê²Œì„ì¢…ë£Œ 
             }
         }
     }
-    while (_kbhit()) _getch(); //Å°¹öÆÛ¸¦ ºñ¿ò 
+    while (_kbhit()) _getch(); //í‚¤ë²„í¼ë¥¼ ë¹„ì›€ 
 }
 void check_game_over(void) {
     int i;
@@ -784,25 +815,25 @@ void check_game_over(void) {
     int y = 5;
 
     for (i = 1; i < BOARD_X - 2; i++) {
-        if (board_curr[3][i] > 0) { //ÃµÀå(À§¿¡¼­ ¼¼¹øÂ° ÁÙ)¿¡ inactive°¡ »ı¼ºµÇ¸é °ÔÀÓ ¿À¹ö 
-            gotoxy(x, y + 0); printf("¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç"); //°ÔÀÓ¿À¹ö ¸Ş¼¼Áö 
-            gotoxy(x, y + 1); printf("¢Ç                              ¢Ç");
-            gotoxy(x, y + 2); printf("¢Ç  +-----------------------+   ¢Ç");
-            gotoxy(x, y + 3); printf("¢Ç  |  G A M E  O V E R..   |   ¢Ç");
-            gotoxy(x, y + 4); printf("¢Ç  +-----------------------+   ¢Ç");
-            gotoxy(x, y + 5); printf("¢Ç   YOUR SCORE: %6d         ¢Ç", score);
-            gotoxy(x, y + 6); printf("¢Ç                              ¢Ç");
-            gotoxy(x, y + 7); printf("¢Ç  Press any key to restart..  ¢Ç");
-            gotoxy(x, y + 8); printf("¢Ç                              ¢Ç");
-            gotoxy(x, y + 9); printf("¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç");
-            last_score = score; //°ÔÀÓÁ¡¼ö¸¦ ¿Å±è 
+        if (board_curr[3][i] > 0) { //ì²œì¥(ìœ„ì—ì„œ ì„¸ë²ˆì§¸ ì¤„)ì— inactiveê°€ ìƒì„±ë˜ë©´ ê²Œì„ ì˜¤ë²„ 
+            gotoxy(x, y + 0); printf("â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤"); //ê²Œì„ì˜¤ë²„ ë©”ì„¸ì§€ 
+            gotoxy(x, y + 1); printf("â–¤                              â–¤");
+            gotoxy(x, y + 2); printf("â–¤  +-----------------------+   â–¤");
+            gotoxy(x, y + 3); printf("â–¤  |  G A M E  O V E R..   |   â–¤");
+            gotoxy(x, y + 4); printf("â–¤  +-----------------------+   â–¤");
+            gotoxy(x, y + 5); printf("â–¤   YOUR SCORE: %6d         â–¤", score);
+            gotoxy(x, y + 6); printf("â–¤                              â–¤");
+            gotoxy(x, y + 7); printf("â–¤  Press any key to restart..  â–¤");
+            gotoxy(x, y + 8); printf("â–¤                              â–¤");
+            gotoxy(x, y + 9); printf("â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤");
+            last_score = score; //ê²Œì„ì ìˆ˜ë¥¼ ì˜®ê¹€ 
 
-            if (score > best_score) { //ÃÖ°í±â·Ï °»½Å½Ã 
-                FILE* file = fopen("score.dat", "wt"); //score.dat¿¡ Á¡¼ö ÀúÀå                
+            if (score > best_score) { //ìµœê³ ê¸°ë¡ ê°±ì‹ ì‹œ 
+                FILE* file = fopen("score.dat", "wt"); //score.datì— ì ìˆ˜ ì €ì¥                
 
-                gotoxy(x, y + 6); printf("¢Ç  ¡Ú¡Ú¡Ú BEST SCORE! ¡Ú¡Ú¡Ú   ¢Ç  ");
+                gotoxy(x, y + 6); printf("â–¤  â˜…â˜…â˜… BEST SCORE! â˜…â˜…â˜…   â–¤  ");
 
-                if (file == 0) { //ÆÄÀÏ ¿¡·¯¸Ş¼¼Áö  
+                if (file == 0) { //íŒŒì¼ ì—ëŸ¬ë©”ì„¸ì§€  
                     gotoxy(0, 0);
                     printf("FILE ERROR: SYSTEM CANNOT WRITE BEST SCORE ON \"SCORE.DAT\"");
                 }
@@ -819,34 +850,34 @@ void check_game_over(void) {
     }
 }
 
-void pause(void) { //°ÔÀÓ ÀÏ½ÃÁ¤Áö ÇÔ¼ö 
+void pause(void) { //ê²Œì„ ì¼ì‹œì •ì§€ í•¨ìˆ˜ 
     int i, j;
 
     int x = 5;
     int y = 5;
 
-    for (i = 1; i < BOARD_X - 2; i++) { //°ÔÀÓ ÀÏ½ÃÁ¤Áö ¸Ş¼¼Áö 
-        gotoxy(x, y + 0); printf("¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç");
-        gotoxy(x, y + 1); printf("¢Ç                              ¢Ç");
-        gotoxy(x, y + 2); printf("¢Ç  +-----------------------+   ¢Ç");
-        gotoxy(x, y + 3); printf("¢Ç  |       P A U S E       |   ¢Ç");
-        gotoxy(x, y + 4); printf("¢Ç  +-----------------------+   ¢Ç");
-        gotoxy(x, y + 5); printf("¢Ç  Press any key to resume..   ¢Ç");
-        gotoxy(x, y + 6); printf("¢Ç                              ¢Ç");
-        gotoxy(x, y + 7); printf("¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç¢Ç");
+    for (i = 1; i < BOARD_X - 2; i++) { //ê²Œì„ ì¼ì‹œì •ì§€ ë©”ì„¸ì§€ 
+        gotoxy(x, y + 0); printf("â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤");
+        gotoxy(x, y + 1); printf("â–¤                              â–¤");
+        gotoxy(x, y + 2); printf("â–¤  +-----------------------+   â–¤");
+        gotoxy(x, y + 3); printf("â–¤  |       P A U S E       |   â–¤");
+        gotoxy(x, y + 4); printf("â–¤  +-----------------------+   â–¤");
+        gotoxy(x, y + 5); printf("â–¤  Press any key to resume..   â–¤");
+        gotoxy(x, y + 6); printf("â–¤                              â–¤");
+        gotoxy(x, y + 7); printf("â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤â–¤");
     }
-    _getch(); //Å°ÀÔ·Â½Ã±îÁö ´ë±â 
+    _getch(); //í‚¤ì…ë ¥ì‹œê¹Œì§€ ëŒ€ê¸° 
 
-    system("cls"); //È­¸é Áö¿ì°í »õ·Î ±×¸² 
+    system("cls"); //í™”ë©´ ì§€ìš°ê³  ìƒˆë¡œ ê·¸ë¦¼ 
     reset_board_prev();
     draw_board();
     draw_status();
 
-    for (i = 1; i < 3; i++) { // ´ÙÀ½ºí·Ï ±×¸² 
+    for (i = 1; i < 3; i++) { // ë‹¤ìŒë¸”ë¡ ê·¸ë¦¼ 
         for (j = 0; j < 4; j++) {
             if (blocks[b_type_next][0][i][j] == 1) {
                 gotoxy(BOARD_X + BOARD_X_ADJ + 3 + j, i + 6);
-                printf("¡á");
+                printf("â– ");
             }
             else {
                 gotoxy(BOARD_X + BOARD_X_ADJ + 3 + j, i + 6);
@@ -854,16 +885,16 @@ void pause(void) { //°ÔÀÓ ÀÏ½ÃÁ¤Áö ÇÔ¼ö
             }
         }
     }
-} //³¡! 
+} //ë! 
 
 
 void draw_next_block() {
 
-    for (int i = 1; i < 3; i++) { // ´ÙÀ½ºí·Ï ±×¸² 
+    for (int i = 1; i < 3; i++) { // ë‹¤ìŒë¸”ë¡ ê·¸ë¦¼ 
         for (int j = 0; j < 4; j++) {
             if (blocks[b_type_next][0][i][j] == 1) {
                 gotoxy(BOARD_X + BOARD_X_ADJ + 3 + j, i + 6);
-                printf("¡á");
+                printf("â– ");
             }
             else {
                 gotoxy(BOARD_X + BOARD_X_ADJ + 3 + j, i + 6);
