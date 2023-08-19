@@ -13,7 +13,8 @@
 #define ESC 27 //게임종료 
 
 void check_key(void); //키보드로 키를 입력받음 
-void drop_block(void); //블록을 아래로 떨어트림 
 void move_block(int dir); //dir방향으로 블록을 움직임 
+void drop_block(void); //블록을 아래로 떨어트림 
+
 
 #endif
