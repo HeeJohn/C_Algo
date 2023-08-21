@@ -12,3 +12,12 @@ void drop_block(void); //블록을 아래로 떨어트림
 /* ---------- 게임 내 키 동작 관련 함수 ---------- */
 
 #endif
+
+
+
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
+#include"global.h"
+
+#endif // !GLOBAL_H

@@ -6,7 +6,7 @@
 /* ---------- 게임 프리셋 ---------- */
 
 // 시작 페이지를 출력하고 콘솔 창 크기를 설정하는 함수
-void startPage(int* consoleWidth, int* consoleHeight);
+void startPage();
 
 // 게임 오버 상황을 체크하고 처리하는 함수
 void check_game_over(void);
@@ -54,7 +54,18 @@ void clear_and_redraw();
 // 다음 블록 그리기 함수
 void draw_next_block();
 
+void gotoxy(int x, int y);
 
+void check_level_up(void);
 #endif // BOARD_UI
 
 /* ============== 보드 UI 그리는 함수  ============== */
+
+
+
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
+#include"global.h"
+
+#endif // !GLOBAL_H

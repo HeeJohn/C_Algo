@@ -13,3 +13,11 @@ int check_crush(int bx, int by, int b_rotation);
 void check_line(void);
 
 #endif // !BLOCK_H
+
+
+#ifndef GLOBAL_H
+#define GLOBAL_H
+
+#include"global.h"
+
+#endif // !GLOBAL_H

@@ -1,4 +1,8 @@
 #include "common.h"
+#include "board_ui.h"
+#include<stdlib.h>
+#include<stdio.h>
+
 
 /* ------------------- 새로운 블록 생성 함수 ------------------- */
 void create_nblock(void)
@@ -48,12 +52,12 @@ int check_crush(int bx, int by, int b_rotation)
     for (i = 0; i < 4; i++)
     {
         for (j = 0; j < 4; j++)
-        { /* 지정된 위치의 게임판과 블럭모양을 비교해서 겹치면 false를 리턴 */
+        { /* 지정된 위치의 게임판과 블럭모양을 비교해서 겹치면 FALSE를 리턴 */
             if (blocks[b_type][b_rotation][i][j] == 1 && board_curr[by + i][bx + j] > 0)
-                return false;
+                return FALSE;
         }
     }
-    return true; //하나도 안겹치면 true리턴 
+    return TRUE; //하나도 안겹치면 TRUE리턴 
 };
 
 
