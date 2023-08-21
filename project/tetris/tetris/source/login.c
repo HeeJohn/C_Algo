@@ -1,5 +1,5 @@
 //
-////·©Å·, °èÁ¤ ÄÚµù
+////ï¿½ï¿½Å·, ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½
 //#define NAME_LEN 20
 //#define PERSON_NUM 1
 //#define P_SIZE 21
@@ -19,8 +19,12 @@
 //
 //
 //
-///*ÇÔ¼ö ¿øÇü ¼±¾ð*/
-//
+//#include<windows.h>
+//#include<conio.h>
+//#include<time.h>
+//#include<stdlib.h>
+//#include<stdio.h>
+////
 ////Person* perArr = (Person*)malloc(sizeof(Person));
 //void loaddata(Person*, int*);
 //void signup(Person*, int*);
@@ -31,7 +35,7 @@
 //
 //void loaddata(Person* parr, int* pnum)
 //{
-//    FILE* file = fopen("·©Å·.dat", "r");
+//    FILE* file = fopen("ï¿½ï¿½Å·.dat", "r");
 //    if (file == NULL)
 //    {
 //        return;
@@ -54,21 +58,21 @@
 //
 //    while (1)
 //    {
-//        printf("È¸¿ø°¡ÀÔ");
-//        gotoxy(2, 4); printf("¾ÆÀÌµð¸¦ Àû¾îÁÖ¼¼¿ä : ");
-//        gotoxy(2, 5); printf("ºñ¹Ð¹øÈ£ Àû¾îÁÖ¼¼¿ä (¿µ¾î·Î Àû¾îÁÖ¼¼¿ä) :");
+//        printf("È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+//        gotoxy(2, 4); printf("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ : ");
+//        gotoxy(2, 5); printf("ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½) :");
 //        gotoxy(14, 4); scanf("%s", parr[*person].name);
 //        for (i = 0; i < *person; i++)
 //            if (strcmp(parr[i].name, parr[*person].name) == 0)
 //            {
-//                printf("\nÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµðÀÔ´Ï´Ù. Ã¹¹øÂ° È­¸éÀ¸·Î µ¹¾Æ°©´Ï´Ù."); Sleep(2000); system("cls");
+//                printf("\nï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ï¿½Ô´Ï´ï¿½. Ã¹ï¿½ï¿½Â° È­ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ï¿½Ï´ï¿½."); Sleep(2000); system("cls");
 //                return;
 //            }
 //        gotoxy(25, 5); get_pw(parr[*person].password);
 //        break;
 //
 //    }
-//    printf("\n\n%s´ÔÀÇ È¸¿ø°¡ÀÔÀ» ¿Ï·áÇß½À´Ï´Ù.", parr[*person].name);
+//    printf("\n\n%sï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.", parr[*person].name);
 //    parr[*person].score = 0;
 //    (*person)++;
 //    peopleplus(parr, *person);
@@ -88,13 +92,13 @@
 //
 //void get_pw(char* buf)
 //{
-//    int cnt = 0, key;  // ÀÔ·Â ¹ÞÀº ±ÛÀÚ ¼ö¿Í Å°
+//    int cnt = 0, key;  // ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Å°
 //
 //    while (1)
 //    {
-//        key = _getch();  // ÇÑ ±ÛÀÚ ÀÔ·Â¹ÞÀ½
+//        key = _getch();  // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·Â¹ï¿½ï¿½ï¿½
 //
-//        if (key == ENTER_KEY)  // ¿£ÅÍ ¶Ç´Â ÅÇ Å°¸é Á¾·á
+//        if (key == ENTER_KEY)  // ï¿½ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //            break;
 //        if (key == BACKSPACE && cnt > 0)
 //        {
@@ -104,14 +108,14 @@
 //            continue;
 //        }
 //        else if (key == BACKSPACE && cnt == 0)continue;
-//        buf[cnt++] = (char)key;   // ¹öÆÛ¿¡ ±ÛÀÚ ÀúÀåÇÏ°í Ä«¿îÆ® 1 Áõ°¡
-//        putchar('*');  // È­¸é¿¡ º° Ç¥½Ã
+//        buf[cnt++] = (char)key;   // ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ Ä«ï¿½ï¿½Æ® 1 ï¿½ï¿½ï¿½ï¿½
+//        putchar('*');  // È­ï¿½é¿¡ ï¿½ï¿½ Ç¥ï¿½ï¿½
 //
-//        if (cnt == P_SIZE - 1)  // ÃÖ´ë Å©±â¸¦ ³Ñ¾î°¡¸é Á¾·á
+//        if (cnt == P_SIZE - 1)  // ï¿½Ö´ï¿½ Å©ï¿½â¸¦ ï¿½Ñ¾î°¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //            break;
 //    }
 //
-//    buf[cnt] = '\0';    // ¹®ÀÚ¿­·Î ¸¸µé±â À§ÇØ ³Î ¹®ÀÚ ¸¶¹«¸®
+//    buf[cnt] = '\0';    // ï¿½ï¿½ï¿½Ú¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //}
 //int login(Person* parr, int* person)
 //{
@@ -121,8 +125,8 @@
 //
 //        int i, choice;
 //        char name[NAME_LEN];
-//        gotoxy(2, 4); printf("¾ÆÀÌµð¸¦ Àû¾îÁÖ¼¼¿ä : ");
-//        gotoxy(2, 5); printf("ºñ¹Ð¹øÈ£ Àû¾îÁÖ¼¼¿ä : ");
+//        gotoxy(2, 4); printf("ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ : ");
+//        gotoxy(2, 5); printf("ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½ï¿½ï¿½ï¿½Ö¼ï¿½ï¿½ï¿½ : ");
 //        gotoxy(15, 4); scanf("%s", name); fflush(stdin);
 //        for (i = 0; i < *person; i++)
 //        {
@@ -133,7 +137,7 @@
 //            }
 //        }
 //        if (retry == 1) { system("cls"); continue; }
-//        gotoxy(2, 8); printf("ÀÌ¸§ÀÌ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù \n 1.´Ù½Ã   2.È¸¿ø°¡ÀÔ");
+//        gotoxy(2, 8); printf("ï¿½Ì¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê½ï¿½ï¿½Ï´ï¿½ \n 1.ï¿½Ù½ï¿½   2.È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 //        gotoxy(20, 8); scanf("%d", &choice); fflush(stdin);
 //        switch (choice)
 //        {
@@ -152,7 +156,7 @@
 //            return 2;
 //        else
 //        {
-//            printf("\n1. ÀÌ¸§ ´Ù½Ã ÀÔ·ÂÇÏ±â    2. ºñ¹Ð¹øÈ£ ´Ù½Ã ÀÔ·ÂÇÏ±â -> "); scanf("%d", &choice);
+//            printf("\n1. ï¿½Ì¸ï¿½ ï¿½Ù½ï¿½ ï¿½Ô·ï¿½ï¿½Ï±ï¿½    2. ï¿½ï¿½Ð¹ï¿½È£ ï¿½Ù½ï¿½ ï¿½Ô·ï¿½ï¿½Ï±ï¿½ -> "); scanf("%d", &choice);
 //            switch (choice)
 //            {
 //            case 1: system("cls"); return 1;
@@ -180,7 +184,7 @@
 //void printranking(Person* parr, int people)
 //{
 //    int i = 0;
-//    gotoxy(7, 0); printf("·©Å·!!"); gotoxy(0, 1); printf("µî¼ö  ÀÌ¸§"); gotoxy(10, 1); printf("Á¡¼ö");
+//    gotoxy(7, 0); printf("ï¿½ï¿½Å·!!"); gotoxy(0, 1); printf("ï¿½ï¿½ï¿½  ï¿½Ì¸ï¿½"); gotoxy(10, 1); printf("ï¿½ï¿½ï¿½ï¿½");
 //    if (people < 5)
 //        for (i = 0; i < people; i++)
 //        {
